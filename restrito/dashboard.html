@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - VitaCare Clínica Médica</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <!-- Header Área Restrita -->
+    <header class="header">
+        <div class="container">
+            <a href="dashboard.html" class="logo">
+                <i class="fas fa-heartbeat"></i> VitaCare - Área Restrita
+            </a>
+            <div class="header-info">
+                <span id="user-info"><i class="fas fa-user"></i> Carregando...</span>
+                <button class="btn btn-outline-light btn-sm ml-3" onclick="VitaCare.logout()">
+                    <i class="fas fa-sign-out-alt"></i> Sair
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navegação Área Restrita -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="dashboard.html">
+                            <i class="fas fa-tachometer-alt"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="cadastrosDropdown" role="button" data-toggle="dropdown">
+                            <i class="fas fa-plus-circle"></i> Cadastros
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="cadastro_funcionario.html">
+                                <i class="fas fa-user-tie"></i> Funcionários
+                            </a>
+                            <a class="dropdown-item" href="cadastro_medico.html">
+                                <i class="fas fa-user-md"></i> Médicos
+                            </a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="listagensDropdown" role="button" data-toggle="dropdown">
+                            <i class="fas fa-list"></i> Listagens
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="listar_funcionarios.html">
+                                <i class="fas fa-users"></i> Funcionários
+                            </a>
+                            <a class="dropdown-item" href="listar_medicos.html">
+                                <i class="fas fa-user-md"></i> Médicos
+                            </a>
+                            <a class="dropdown-item" href="listar_agendamentos.html">
+                                <i class="fas fa-calendar-alt"></i> Agendamentos
+                            </a>
+                            <a class="dropdown-item" href="listar_contatos.html">
+                                <i class="fas fa-envelope"></i> Contatos
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+                <a href="../public/index.html" class="btn btn-outline-light">
+                    <i class="fas fa-globe"></i> Site Público
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Conteúdo Principal -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Boas-vindas -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h2 class="mb-0">
+                                <i class="fas fa-tachometer-alt text-primary"></i> 
+                                Dashboard - Painel de Controle
+                            </h2>
+                            <p class="text-muted mb-0">Bem-vindo ao sistema de gestão da VitaCare</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Estatísticas -->
+            <div class="row mb-4" id="estatisticas-container">
+                <div class="col-lg-2 col-md-4 col-sm-6 mb-3">
+                    <div class="stat-card funcionarios">
+                        <div class="stat-number" data-target="0">0</div>
+                        <div class="stat-label">Funcionários</div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 col-sm-6 mb-3">
+                    <div class="stat-card medicos">
+                        <div class="stat-number" data-target="0">0</div>
+                        <div class="stat-label">Médicos</div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 col-sm-6 mb-3">
+                    <div class="stat-card agendamentos">
+                        <div class="stat-number" data-target="0">0</div>
+                        <div class="stat-label">Agendamentos</div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 col-sm-6 mb-3">
+                    <div class="stat-card contatos">
+                        <div class="stat-number" data-target="0">0</div>
+                        <div class="stat-label">Contatos</div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 col-sm-6 mb-3">
+                    <div class="stat-card hoje">
+                        <div class="stat-number" data-target="0">0</div>
+                        <div class="stat-label">Hoje</div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 col-sm-6 mb-3">
+                    <div class="stat-card">
+                        <div class="stat-number">5</div>
+                        <div class="stat-label">Especialidades</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ações Rápidas -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0">
+                                <i class="fas fa-bolt"></i> Ações Rápidas
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-3 col-md-6 mb-3">
+                                    <a href="cadastro_funcionario.html" class="btn btn-primary btn-block btn-lg">
+                                        <i class="fas fa-user-plus"></i><br>
+                                        <small>Cadastrar Funcionário</small>
+                                    </a>
+                                </div>
+                                <div class="col-lg-3 col-md-6 mb-3">
+                                    <a href="cadastro_medico.html" class="btn btn-success btn-block btn-lg">
+                                        <i class="fas fa-user-md"></i><br>
+                                        <small>Cadastrar Médico</small>
+                                    </a>
+                                </div>
+                                <div class="col-lg-3 col-md-6 mb-3">
+                                    <a href="listar_agendamentos.html" class="btn btn-info btn-block btn-lg">
+                                        <i class="fas fa-calendar-alt"></i><br>
+                                        <small>Ver Agendamentos</small>
+                                    </a>
+                                </div>
+                                <div class="col-lg-3 col-md-6 mb-3">
+                                    <a href="listar_contatos.html" class="btn btn-warning btn-block btn-lg">
+                                        <i class="fas fa-envelope"></i><br>
+                                        <small>Ver Contatos</small>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Especialidades Mais Procuradas -->
+            <div class="row mb-4">
+                <div class="col-lg-6 mb-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0">
+                                <i class="fas fa-chart-bar"></i> Especialidades Mais Procuradas
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div id="especialidades-populares">
+                                <div class="text-center">
+                                    <div class="spinner"></div>
+                                    <p>Carregando dados...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Agendamentos Recentes -->
+                <div class="col-lg-6 mb-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0">
+                                <i class="fas fa-clock"></i> Agendamentos Recentes
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div id="agendamentos-recentes">
+                                <div class="text-center">
+                                    <div class="spinner"></div>
+                                    <p>Carregando agendamentos...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Informações do Sistema -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0">
+                                <i class="fas fa-info-circle"></i> Informações do Sistema
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <h6><i class="fas fa-server text-primary"></i> Sistema</h6>
+                                    <p class="small text-muted">VitaCare v1.0<br>Desenvolvido para UFU</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <h6><i class="fas fa-calendar text-success"></i> Último Acesso</h6>
+                                    <p class="small text-muted" id="ultimo-acesso">Carregando...</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <h6><i class="fas fa-shield-alt text-warning"></i> Segurança</h6>
+                                    <p class="small text-muted">Conexão segura<br>Dados protegidos</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <p>&copy; 2024 VitaCare Clínica Médica - Sistema de Gestão Interno</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="../js/script.js"></script>
+    
+    <script>
+        // Carregar dados do dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            carregarEstatisticas();
+            carregarAgendamentosRecentes();
+            
+            // Atualizar último acesso
+            document.getElementById('ultimo-acesso').textContent = new Date().toLocaleString('pt-BR');
+            
+            // Simular informações do usuário
+            document.getElementById('user-info').innerHTML = '<i class="fas fa-user"></i> João Silva (Admin)';
+        });
+
+        // Carregar estatísticas
+        async function carregarEstatisticas() {
+            try {
+                const response = await fetch('../api/estatisticas.php');
+                const result = await response.json();
+                
+                if (result.success) {
+                    const stats = result.estatisticas;
+                    
+                    // Atualizar números
+                    document.querySelector('.stat-card.funcionarios .stat-number').setAttribute('data-target', stats.total_funcionarios);
+                    document.querySelector('.stat-card.medicos .stat-number').setAttribute('data-target', stats.total_medicos);
+                    document.querySelector('.stat-card.agendamentos .stat-number').setAttribute('data-target', stats.total_agendamentos);
+                    document.querySelector('.stat-card.contatos .stat-number').setAttribute('data-target', stats.total_contatos);
+                    document.querySelector('.stat-card.hoje .stat-number').setAttribute('data-target', stats.agendamentos_hoje);
+                    
+                    // Atualizar especialidades populares
+                    const especialidadesContainer = document.getElementById('especialidades-populares');
+                    if (stats.especialidades_populares && stats.especialidades_populares.length > 0) {
+                        let html = '';
+                        stats.especialidades_populares.forEach((esp, index) => {
+                            const percentage = index === 0 ? 100 : Math.round((esp.total_agendamentos / stats.especialidades_populares[0].total_agendamentos) * 100);
+                            html += `
+                                <div class="mb-3">
+                                    <div class="d-flex justify-content-between">
+                                        <span>${esp.Especialidade}</span>
+                                        <span class="badge badge-primary">${esp.total_agendamentos}</span>
+                                    </div>
+                                    <div class="progress" style="height: 8px;">
+                                        <div class="progress-bar" style="width: ${percentage}%"></div>
+                                    </div>
+                                </div>
+                            `;
+                        });
+                        especialidadesContainer.innerHTML = html;
+                    } else {
+                        especialidadesContainer.innerHTML = '<p class="text-muted">Nenhum dado disponível</p>';
+                    }
+                }
+            } catch (error) {
+                console.error('Erro ao carregar estatísticas:', error);
+            }
+        }
+
+        // Carregar agendamentos recentes
+        async function carregarAgendamentosRecentes() {
+            try {
+                const response = await fetch('../api/listar_agendamentos.php');
+                const result = await response.json();
+                
+                if (result.success) {
+                    const agendamentos = result.agendamentos.slice(0, 5); // Últimos 5
+                    const container = document.getElementById('agendamentos-recentes');
+                    
+                    if (agendamentos.length > 0) {
+                        let html = '<div class="list-group list-group-flush">';
+                        agendamentos.forEach(agendamento => {
+                            const data = new Date(agendamento.Datahora).toLocaleString('pt-BR');
+                            html += `
+                                <div class="list-group-item">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h6 class="mb-1">${agendamento.NomePaciente}</h6>
+                                        <small>${data}</small>
+                                    </div>
+                                    <p class="mb-1">${agendamento.NomeMedico} - ${agendamento.Especialidade}</p>
+                                    <small class="text-muted">${agendamento.EmailPaciente}</small>
+                                </div>
+                            `;
+                        });
+                        html += '</div>';
+                        container.innerHTML = html;
+                    } else {
+                        container.innerHTML = '<p class="text-muted">Nenhum agendamento encontrado</p>';
+                    }
+                }
+            } catch (error) {
+                console.error('Erro ao carregar agendamentos:', error);
+                document.getElementById('agendamentos-recentes').innerHTML = '<p class="text-danger">Erro ao carregar dados</p>';
+            }
+        }
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listar Funcionários - VitaCare Clínica Médica</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <!-- Header Área Restrita -->
+    <header class="header">
+        <div class="container">
+            <a href="dashboard.html" class="logo">
+                <i class="fas fa-heartbeat"></i> VitaCare - Área Restrita
+            </a>
+            <div class="header-info">
+                <span id="user-info"><i class="fas fa-user"></i> Carregando...</span>
+                <button class="btn btn-outline-light btn-sm ml-3" onclick="VitaCare.logout()">
+                    <i class="fas fa-sign-out-alt"></i> Sair
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navegação Área Restrita -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="dashboard.html">
+                            <i class="fas fa-tachometer-alt"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="cadastrosDropdown" role="button" data-toggle="dropdown">
+                            <i class="fas fa-plus-circle"></i> Cadastros
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="cadastro_funcionario.html">
+                                <i class="fas fa-user-tie"></i> Funcionários
+                            </a>
+                            <a class="dropdown-item" href="cadastro_medico.html">
+                                <i class="fas fa-user-md"></i> Médicos
+                            </a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" id="listagensDropdown" role="button" data-toggle="dropdown">
+                            <i class="fas fa-list"></i> Listagens
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item active" href="listar_funcionarios.html">
+                                <i class="fas fa-users"></i> Funcionários
+                            </a>
+                            <a class="dropdown-item" href="listar_medicos.html">
+                                <i class="fas fa-user-md"></i> Médicos
+                            </a>
+                            <a class="dropdown-item" href="listar_agendamentos.html">
+                                <i class="fas fa-calendar-alt"></i> Agendamentos
+                            </a>
+                            <a class="dropdown-item" href="listar_contatos.html">
+                                <i class="fas fa-envelope"></i> Contatos
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+                <a href="../public/index.html" class="btn btn-outline-light">
+                    <i class="fas fa-globe"></i> Site Público
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Conteúdo Principal -->
+    <main class="main-content">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center mb-5">
+                    <h1 class="display-4 fade-in-up">Listagem de Funcionários</h1>
+                    <p class="lead fade-in-up">Visualize e gerencie os funcionários cadastrados</p>
+                </div>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="mb-0"><i class="fas fa-users"></i> Funcionários Cadastrados</h4>
+                        </div>
+                        <div class="card-body">
+                            <div id="alert-container"></div>
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Nome</th>
+                                            <th>CPF</th>
+                                            <th>E-mail</th>
+                                            <th>Telefone</th>
+                                            <th>Cargo</th>
+                                            <th>Data Contratação</th>
+                                            <th>Ações</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="funcionarios-table-body">
+                                        <!-- Dados dos funcionários serão carregados aqui via JavaScript -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <p>&copy; 2024 VitaCare Clínica Médica - Sistema de Gestão Interno</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="../js/script.js"></script>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Simular informações do usuário
+            document.getElementById("user-info").innerHTML = "<i class=\"fas fa-user\"></i> João Silva (Admin)";
+
+            const funcionariosTableBody = document.getElementById("funcionarios-table-body");
+            const alertContainer = document.getElementById("alert-container");
+
+            // Dados estáticos de exemplo para funcionários
+            const funcionarios = [
+                {
+                    codigo: 1,
+                    nome: "Ana Paula Silva",
+                    cpf: "111.222.333-44",
+                    email: "ana.silva@vitacare.com.br",
+                    telefone: "(34) 98765-4321",
+                    cargo: "Recepcionista",
+                    data_contratacao: "2023-01-15"
+                },
+                {
+                    codigo: 2,
+                    nome: "Carlos Eduardo Santos",
+                    cpf: "555.666.777-88",
+                    email: "carlos.santos@vitacare.com.br",
+                    telefone: "(34) 99887-6655",
+                    cargo: "Enfermeiro",
+                    data_contratacao: "2022-05-20"
+                },
+                {
+                    codigo: 3,
+                    nome: "Mariana Oliveira",
+                    cpf: "999.888.777-66",
+                    email: "mariana.o@vitacare.com.br",
+                    telefone: "(34) 97777-1111",
+                    cargo: "Auxiliar Administrativo",
+                    data_contratacao: "2023-11-01"
+                }
+            ];
+
+            function carregarFuncionariosEstaticos() {
+                if (funcionarios.length > 0) {
+                    let html = "";
+                    funcionarios.forEach(func => {
+                        html += `
+                            <tr>
+                                <td>${func.nome}</td>
+                                <td>${func.cpf}</td>
+                                <td>${func.email}</td>
+                                <td>${func.telefone}</td>
+                                <td>${func.cargo}</td>
+                                <td>${func.data_contratacao}</td>
+                                <td>
+                                    <button class="btn btn-sm btn-info mr-1" onclick="editarFuncionario(${func.codigo})">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-danger" onclick="excluirFuncionario(${func.codigo})">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        `;
+                    });
+                    funcionariosTableBody.innerHTML = html;
+                } else {
+                    funcionariosTableBody.innerHTML = `
+                        <tr>
+                            <td colspan="7" class="text-center">Nenhum funcionário cadastrado.</td>
+                        </tr>
+                    `;
+                }
+            }
+
+            // Funções de exemplo para editar e excluir (simuladas)
+            window.editarFuncionario = function(codigo) {
+                alert(`Simulação: Editar funcionário com código: ${codigo}`);
+            };
+
+            window.excluirFuncionario = function(codigo) {
+                if (confirm(`Simulação: Tem certeza que deseja excluir o funcionário com código: ${codigo}?`)) {
+                    alert(`Simulação: Excluir funcionário com código: ${codigo}`);
+                }
+            };
+
+            carregarFuncionariosEstaticos();
+        });
+
+        // Função de logout (simulada)
+        const VitaCare = {
+            logout: function() {
+                window.location.href = "../public/login.html";
+            }
+        };
+    </script>
+</body>
+</html>
+
+

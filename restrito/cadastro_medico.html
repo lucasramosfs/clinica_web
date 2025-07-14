@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Médico - VitaCare Clínica Médica</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <!-- Header Área Restrita -->
+    <header class="header">
+        <div class="container">
+            <a href="dashboard.html" class="logo">
+                <i class="fas fa-heartbeat"></i> VitaCare - Área Restrita
+            </a>
+            <div class="header-info">
+                <span id="user-info"><i class="fas fa-user"></i> Carregando...</span>
+                <button class="btn btn-outline-light btn-sm ml-3" onclick="VitaCare.logout()">
+                    <i class="fas fa-sign-out-alt"></i> Sair
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navegação Área Restrita -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="dashboard.html">
+                            <i class="fas fa-tachometer-alt"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" id="cadastrosDropdown" role="button" data-toggle="dropdown">
+                            <i class="fas fa-plus-circle"></i> Cadastros
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="cadastro_funcionario.html">
+                                <i class="fas fa-user-tie"></i> Funcionários
+                            </a>
+                            <a class="dropdown-item active" href="cadastro_medico.html">
+                                <i class="fas fa-user-md"></i> Médicos
+                            </a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="listagensDropdown" role="button" data-toggle="dropdown">
+                            <i class="fas fa-list"></i> Listagens
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="listar_funcionarios.html">
+                                <i class="fas fa-users"></i> Funcionários
+                            </a>
+                            <a class="dropdown-item" href="listar_medicos.html">
+                                <i class="fas fa-user-md"></i> Médicos
+                            </a>
+                            <a class="dropdown-item" href="listar_agendamentos.html">
+                                <i class="fas fa-calendar-alt"></i> Agendamentos
+                            </a>
+                            <a class="dropdown-item" href="listar_contatos.html">
+                                <i class="fas fa-envelope"></i> Contatos
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+                <a href="../public/index.html" class="btn btn-outline-light">
+                    <i class="fas fa-globe"></i> Site Público
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Conteúdo Principal -->
+    <main class="main-content">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center mb-5">
+                    <h1 class="display-4 fade-in-up">Cadastro de Médico</h1>
+                    <p class="lead fade-in-up">Preencha os dados para cadastrar um novo médico</p>
+                </div>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="mb-0"><i class="fas fa-user-md"></i> Dados do Médico</h4>
+                        </div>
+                        <div class="card-body">
+                            <div id="alert-container"></div>
+                            
+                            <form id="cadastroMedicoForm">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="nome" class="form-label">Nome Completo *</label>
+                                        <input type="text" class="form-control" id="nome" name="nome" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="cpf" class="form-label">CPF *</label>
+                                        <input type="text" class="form-control" id="cpf" name="cpf" placeholder="999.999.999-99" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="crm" class="form-label">CRM *</label>
+                                        <input type="text" class="form-control" id="crm" name="crm" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="especialidade" class="form-label">Especialidade *</label>
+                                        <select class="form-control" id="especialidade" name="especialidade" required>
+                                            <option value="">Selecione uma especialidade</option>
+                                            <option value="Cardiologia">Cardiologia</option>
+                                            <option value="Dermatologia">Dermatologia</option>
+                                            <option value="Ortopedia">Ortopedia</option>
+                                            <option value="Pediatria">Pediatria</option>
+                                            <option value="Neurologia">Neurologia</option>
+                                            <option value="Clínica Geral">Clínica Geral</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="email" class="form-label">E-mail *</label>
+                                        <input type="email" class="form-control" id="email" name="email" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="telefone" class="form-label">Telefone *</label>
+                                        <input type="tel" class="form-control" id="telefone" name="telefone" placeholder="(34) 99999-9999" required>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="senha" class="form-label">Senha *</label>
+                                        <input type="password" class="form-control" id="senha" name="senha" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="confirmar_senha" class="form-label">Confirmar Senha *</label>
+                                        <input type="password" class="form-control" id="confirmar_senha" name="confirmar_senha" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="text-center mt-4">
+                                    <button type="submit" class="btn btn-success btn-lg">
+                                        <i class="fas fa-save"></i> Cadastrar Médico
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <p>&copy; 2024 VitaCare Clínica Médica - Sistema de Gestão Interno</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="../js/script.js"></script>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Simular informações do usuário
+            document.getElementById("user-info").innerHTML = "<i class=\"fas fa-user\"></i> João Silva (Admin)";
+
+            const cadastroMedicoForm = document.getElementById("cadastroMedicoForm");
+            const alertContainer = document.getElementById("alert-container");
+
+            cadastroMedicoForm.addEventListener("submit", async function(e) {
+                e.preventDefault();
+                
+                const formData = new FormData(this);
+                const submitBtn = this.querySelector("button[type=\"submit\"]");
+                const originalBtnText = submitBtn.innerHTML;
+
+                submitBtn.innerHTML = 
+                    `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Cadastrando...`;
+                submitBtn.disabled = true;
+
+                // Simular sucesso no cadastro após um pequeno atraso
+                setTimeout(() => {
+                    alertContainer.innerHTML = `
+                        <div class="alert alert-success alert-dismissible fade show">
+                            <i class="fas fa-check-circle"></i> Médico cadastrado com sucesso (simulado).
+                            <button type="button" class="close" data-dismiss="alert">
+                                <span>&times;</span>
+                            </button>
+                        </div>
+                    `;
+                    cadastroMedicoForm.reset();
+                    submitBtn.innerHTML = originalBtnText;
+                    submitBtn.disabled = false;
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                }, 1000); // Simula um tempo de processamento
+            });
+        });
+
+        // Função de logout (simulada)
+        const VitaCare = {
+            logout: function() {
+                // Em um ambiente real, aqui você faria uma requisição para o backend para encerrar a sessão
+                // Por enquanto, apenas redireciona para a página de login
+                window.location.href = "../public/login.html";
+            }
+        };
+    </script>
+</body>
+</html>
+
+

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listar Agendamentos - VitaCare Clínica Médica</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <!-- Header Área Restrita -->
+    <header class="header">
+        <div class="container">
+            <a href="dashboard.html" class="logo">
+                <i class="fas fa-heartbeat"></i> VitaCare - Área Restrita
+            </a>
+            <div class="header-info">
+                <span id="user-info"><i class="fas fa-user"></i> Carregando...</span>
+                <button class="btn btn-outline-light btn-sm ml-3" onclick="VitaCare.logout()">
+                    <i class="fas fa-sign-out-alt"></i> Sair
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navegação Área Restrita -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="dashboard.html">
+                            <i class="fas fa-tachometer-alt"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="cadastrosDropdown" role="button" data-toggle="dropdown">
+                            <i class="fas fa-plus-circle"></i> Cadastros
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="cadastro_funcionario.html">
+                                <i class="fas fa-user-tie"></i> Funcionários
+                            </a>
+                            <a class="dropdown-item" href="cadastro_medico.html">
+                                <i class="fas fa-user-md"></i> Médicos
+                            </a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" id="listagensDropdown" role="button" data-toggle="dropdown">
+                            <i class="fas fa-list"></i> Listagens
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="listar_funcionarios.html">
+                                <i class="fas fa-users"></i> Funcionários
+                            </a>
+                            <a class="dropdown-item" href="listar_medicos.html">
+                                <i class="fas fa-user-md"></i> Médicos
+                            </a>
+                            <a class="dropdown-item active" href="listar_agendamentos.html">
+                                <i class="fas fa-calendar-alt"></i> Agendamentos
+                            </a>
+                            <a class="dropdown-item" href="listar_contatos.html">
+                                <i class="fas fa-envelope"></i> Contatos
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+                <a href="../public/index.html" class="btn btn-outline-light">
+                    <i class="fas fa-globe"></i> Site Público
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Conteúdo Principal -->
+    <main class="main-content">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center mb-5">
+                    <h1 class="display-4 fade-in-up">Listagem de Agendamentos</h1>
+                    <p class="lead fade-in-up">Visualize e gerencie os agendamentos de consultas</p>
+                </div>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="mb-0"><i class="fas fa-calendar-alt"></i> Agendamentos Realizados</h4>
+                        </div>
+                        <div class="card-body">
+                            <div id="alert-container"></div>
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Paciente</th>
+                                            <th>E-mail</th>
+                                            <th>Telefone</th>
+                                            <th>Especialidade</th>
+                                            <th>Médico</th>
+                                            <th>Data</th>
+                                            <th>Hora</th>
+                                            <th>Observações</th>
+                                            <th>Ações</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="agendamentos-table-body">
+                                        <!-- Dados dos agendamentos serão carregados aqui via JavaScript -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <p>&copy; 2024 VitaCare Clínica Médica - Sistema de Gestão Interno</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="../js/script.js"></script>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Simular informações do usuário
+            document.getElementById("user-info").innerHTML = "<i class=\"fas fa-user\"></i> João Silva (Admin)";
+
+            const agendamentosTableBody = document.getElementById("agendamentos-table-body");
+            const alertContainer = document.getElementById("alert-container");
+
+            // Dados estáticos de exemplo para agendamentos
+            const agendamentos = [
+                {
+                    codigo: 1,
+                    nome_paciente: "Maria Souza",
+                    email_paciente: "maria.souza@email.com",
+                    telefone_paciente: "(34) 99999-0000",
+                    especialidade: "Cardiologia",
+                    nome_medico: "Dr. Lucas Ramos",
+                    data_agendamento: "2024-07-15",
+                    hora_agendamento: "10:00",
+                    observacoes: "Primeira consulta"
+                },
+                {
+                    codigo: 2,
+                    nome_paciente: "João Pereira",
+                    email_paciente: "joao.pereira@email.com",
+                    telefone_paciente: "(34) 98888-1111",
+                    especialidade: "Dermatologia",
+                    nome_medico: "Dr. Mateu Xauan",
+                    data_agendamento: "2024-07-16",
+                    hora_agendamento: "14:30",
+                    observacoes: "Retorno"
+                },
+                {
+                    codigo: 3,
+                    nome_paciente: "Ana Clara Lima",
+                    email_paciente: "ana.lima@email.com",
+                    telefone_paciente: "(34) 97777-2222",
+                    especialidade: "Ortopedia",
+                    nome_medico: "Dr. Victor Nogueira",
+                    data_agendamento: "2024-07-17",
+                    hora_agendamento: "09:00",
+                    observacoes: "Dor no joelho"
+                }
+            ];
+
+            function carregarAgendamentosEstaticos() {
+                if (agendamentos.length > 0) {
+                    let html = "";
+                    agendamentos.forEach(agendamento => {
+                        html += `
+                            <tr>
+                                <td>${agendamento.nome_paciente}</td>
+                                <td>${agendamento.email_paciente}</td>
+                                <td>${agendamento.telefone_paciente}</td>
+                                <td>${agendamento.especialidade}</td>
+                                <td>${agendamento.nome_medico}</td>
+                                <td>${agendamento.data_agendamento}</td>
+                                <td>${agendamento.hora_agendamento}</td>
+                                <td>${agendamento.observacoes || ""}</td>
+                                <td>
+                                    <button class="btn btn-sm btn-danger" onclick="cancelarAgendamento(${agendamento.codigo})">
+                                        <i class="fas fa-times-circle"></i> Cancelar
+                                    </button>
+                                </td>
+                            </tr>
+                        `;
+                    });
+                    agendamentosTableBody.innerHTML = html;
+                } else {
+                    agendamentosTableBody.innerHTML = `
+                        <tr>
+                            <td colspan="9" class="text-center">Nenhum agendamento encontrado.</td>
+                        </tr>
+                    `;
+                }
+            }
+
+            // Função de exemplo para cancelar agendamento (simulada)
+            window.cancelarAgendamento = function(codigo) {
+                if (confirm(`Simulação: Tem certeza que deseja cancelar o agendamento com código: ${codigo}?`)) {
+                    alert(`Simulação: Agendamento ${codigo} cancelado.`);
+                }
+            };
+
+            carregarAgendamentosEstaticos();
+        });
+
+        // Função de logout (simulada)
+        const VitaCare = {
+            logout: function() {
+                window.location.href = "../public/login.html";
+            }
+        };
+    </script>
+</body>
+</html>
+
+
