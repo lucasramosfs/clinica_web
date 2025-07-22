@@ -6,13 +6,14 @@
     <title>Agendamento - VitaCare Clínica Médica</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/geral.css">
+    <link rel="stylesheet" href="../css/agendamento.css">
 </head>
 <body>
     <!-- Header -->
     <header class="header">
         <div class="container">
-            <a href="index.html" class="logo">
+            <a href="../index.html" class="logo">
                 <i class="fas fa-heartbeat"></i> VitaCare
             </a>
             <div class="header-info">
@@ -31,7 +32,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="index.html">
+                        <a class="nav-link" href="../index.html">
                             <i class="fas fa-home"></i> Home
                         </a>
                     </li>
@@ -330,198 +331,8 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="../js/script.js"></script>
-    
-    <script>
-        // Carregar especialidades ao carregar a página
-        document.addEventListener('DOMContentLoaded', function() {
-            carregarEspecialidades();
-            
-            // Definir data mínima como hoje
-            const hoje = new Date().toISOString().split('T')[0];
-            document.getElementById('data').min = hoje;
-        });
-
-        // Carregar especialidades
-        async function carregarEspecialidades() {
-            const especialidadeSelect = document.getElementById('especialidade');
-            const spinner = document.getElementById('especialidadeSpinner');
-            
-            spinner.style.display = 'block';
-            
-            try {
-                const response = await fetch('../api/especialidades.php');
-                const result = await response.json();
-                
-                if (result.success) {
-                    especialidadeSelect.innerHTML = '<option value="">Selecione uma especialidade</option>';
-                    result.especialidades.forEach(especialidade => {
-                        const option = document.createElement('option');
-                        option.value = especialidade;
-                        option.textContent = especialidade;
-                        especialidadeSelect.appendChild(option);
-                    });
-                }
-            } catch (error) {
-                console.error('Erro ao carregar especialidades:', error);
-            } finally {
-                spinner.style.display = 'none';
-            }
-        }
-
-        // Carregar médicos por especialidade
-        document.getElementById('especialidade').addEventListener('change', async function() {
-            const especialidade = this.value;
-            const medicoSelect = document.getElementById('medico');
-            const spinner = document.getElementById('medicoSpinner');
-            
-            if (!especialidade) {
-                medicoSelect.innerHTML = '<option value="">Primeiro selecione uma especialidade</option>';
-                medicoSelect.disabled = true;
-                return;
-            }
-            
-            spinner.style.display = 'block';
-            medicoSelect.disabled = true;
-            
-            try {
-                const response = await fetch(`../api/medicos_por_especialidade.php?especialidade=${encodeURIComponent(especialidade)}`);
-                const result = await response.json();
-                
-                if (result.success) {
-                    medicoSelect.innerHTML = '<option value="">Selecione um médico</option>';
-                    result.medicos.forEach(medico => {
-                        const option = document.createElement('option');
-                        option.value = medico.Codigo;
-                        option.textContent = medico.Nome;
-                        medicoSelect.appendChild(option);
-                    });
-                    medicoSelect.disabled = false;
-                }
-            } catch (error) {
-                console.error('Erro ao carregar médicos:', error);
-                medicoSelect.innerHTML = '<option value="">Erro ao carregar médicos</option>';
-            } finally {
-                spinner.style.display = 'none';
-            }
-        });
-
-        // Máscara para telefone
-        document.getElementById('telefone_paciente').addEventListener('input', function(e) {
-            let value = e.target.value.replace(/\D/g, '');
-            if (value.length <= 11) {
-                value = value.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
-                if (value.length < 14) {
-                    value = value.replace(/(\d{2})(\d{4})(\d{4})/, '($1) $2-$3');
-                }
-                e.target.value = value;
-            }
-        });
-
-        // Formulário de agendamento
-        document.getElementById('agendamentoForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const alertContainer = document.getElementById('alert-container');
-            const formData = new FormData(this);
-            const submitBtn = this.querySelector('button[type="submit"]');
-            
-            // Combinar data e hora
-            const data = formData.get('data');
-            const hora = formData.get('hora');
-            const datahora = `${data} ${hora}:00`;
-            formData.set('datahora', datahora);
-            
-            // Mostrar loading
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Agendando...';
-            submitBtn.disabled = true;
-            
-            try {
-                const response = await fetch('../api/agendar_consulta.php', {
-                    method: 'POST',
-                    body: formData
-                });
-                
-                const result = await response.json();
-                
-                if (result.success) {
-                    alertContainer.innerHTML = `
-                        <div class="alert alert-success alert-dismissible fade show">
-                            <i class="fas fa-check-circle"></i> ${result.message}
-                            <button type="button" class="close" data-dismiss="alert">
-                                <span>&times;</span>
-                            </button>
-                        </div>
-                    `;
-                    this.reset();
-                    
-                    // Recarregar especialidades
-                    carregarEspecialidades();
-                    
-                    // Scroll para o topo
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                } else {
-                    alertContainer.innerHTML = `
-                        <div class="alert alert-danger alert-dismissible fade show">
-                            <i class="fas fa-exclamation-triangle"></i> ${result.error}
-                            <button type="button" class="close" data-dismiss="alert">
-                                <span>&times;</span>
-                            </button>
-                        </div>
-                    `;
-                }
-            } catch (error) {
-                alertContainer.innerHTML = `
-                    <div class="alert alert-danger alert-dismissible fade show">
-                        <i class="fas fa-exclamation-triangle"></i> Erro ao agendar consulta. Tente novamente.
-                        <button type="button" class="close" data-dismiss="alert">
-                            <span>&times;</span>
-                        </button>
-                    </div>
-                `;
-            } finally {
-                // Restaurar botão
-                submitBtn.innerHTML = '<i class="fas fa-calendar-check"></i> Confirmar Agendamento';
-                submitBtn.disabled = false;
-            }
-        });
-    </script>
-    
-    <style>
-        .form-section {
-            border-left: 4px solid #3498db;
-            padding-left: 20px;
-            margin-bottom: 30px;
-        }
-        
-        .section-title {
-            color: #2c3e50;
-            margin-bottom: 20px;
-        }
-        
-        .step-number {
-            display: inline-block;
-            width: 30px;
-            height: 30px;
-            background: #3498db;
-            color: white;
-            border-radius: 50%;
-            text-align: center;
-            line-height: 30px;
-            margin-right: 10px;
-            font-weight: bold;
-        }
-        
-        .contact-info .contact-item {
-            display: flex;
-            align-items: flex-start;
-        }
-        
-        .contact-info .contact-item i {
-            width: 20px;
-            margin-top: 2px;
-        }
-    </style>
+    <script src="../js/geral.js"></script>
+    <script src="../js/agendamento.js"></script>
 </body>
 </html>
 

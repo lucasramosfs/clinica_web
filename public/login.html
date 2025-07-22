@@ -6,13 +6,14 @@
     <title>Login - VitaCare Clínica Médica</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/geral.css">
+    <link rel="stylesheet" href="../css/login.css">
 </head>
 <body>
     <!-- Header -->
     <header class="header">
         <div class="container">
-            <a href="index.html" class="logo">
+            <a href="../index.html" class="logo">
                 <i class="fas fa-heartbeat"></i> VitaCare
             </a>
             <div class="header-info">
@@ -31,7 +32,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="index.html">
+                        <a class="nav-link" href="../index.html">
                             <i class="fas fa-home"></i> Home
                         </a>
                     </li>
@@ -212,62 +213,10 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="../js/script.js"></script>
+    <script src="../js/geral.js"></script>
+    <script src="../js/login.js"></script>
     
-    <script>
-        // Toggle mostrar/ocultar senha
-        document.getElementById("togglePassword").addEventListener("click", function() {
-            const senhaInput = document.getElementById("senha");
-            const icon = this.querySelector("i");
-            
-            if (senhaInput.type === "password") {
-                senhaInput.type = "text";
-                icon.classList.remove("fa-eye");
-                icon.classList.add("fa-eye-slash");
-            } else {
-                senhaInput.type = "password";
-                icon.classList.remove("fa-eye-slash");
-                icon.classList.add("fa-eye");
-            }
-        });
 
-        // Formulário de login (SIMULADO)
-        document.getElementById("loginForm").addEventListener("submit", async function(e) {
-            e.preventDefault();
-            
-            const alertContainer = document.getElementById("alert-container");
-            const submitBtn = this.querySelector("button[type=\"submit\"]");
-            
-            // Mostrar loading
-            submitBtn.innerHTML = 
-                `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Entrando...`;
-            submitBtn.disabled = true;
-            
-            // Simular sucesso no login após um pequeno atraso
-            setTimeout(() => {
-                alertContainer.innerHTML = `
-                    <div class="alert alert-success">
-                        <i class="fas fa-check-circle"></i> Login realizado com sucesso. Redirecionando...
-                    </div>
-                `;
-                
-                // Redirecionar para área restrita
-                setTimeout(() => {
-                    window.location.href = "../restrito/dashboard.html";
-                }, 500); // Atraso menor para redirecionamento
-            }, 1000); // Simula um tempo de processamento
-        });
-
-        // Formulário de recuperação de senha
-        document.getElementById("recuperarSenhaForm").addEventListener("submit", function(e) {
-            e.preventDefault();
-            
-            // Simular envio
-            alert("Link de recuperação enviado para seu e-mail!");
-            $("#recuperarSenhaModal").modal("hide");
-            this.reset();
-        });
-    </script>
 </body>
 </html>
 
