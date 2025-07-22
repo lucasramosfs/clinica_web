@@ -1,0 +1,48 @@
+/* CSS específico para a página de login */
+
+/* Container de login */
+.login-container {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-card {
+    max-width: 400px;
+    width: 100%;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.login-header {
+    text-align: center;
+    padding: 2rem;
+    background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+    color: white;
+    border-radius: 15px 15px 0 0;
+}
+
+.login-header i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.login-body {
+    padding: 2rem;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .login-container {
+        padding: 1rem;
+    }
+    
+    .login-header {
+        padding: 1.5rem;
+    }
+    
+    .login-body {
+        padding: 1.5rem;
+    }
+}
+

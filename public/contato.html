@@ -6,13 +6,14 @@
     <title>Contato - VitaCare Clínica Médica</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="../css/style.css"> 
+    <link rel="stylesheet" href="../css/geral.css"> 
+    <link rel="stylesheet" href="../css/contato.css">
 </head>
 <body>
     <!-- Header -->
     <header class="header">
         <div class="container">
-            <a href="index.html" class="logo">
+            <a href="../index.html" class="logo">
                 <i class="fas fa-heartbeat"></i> VitaCare
             </a>
             <div class="header-info">
@@ -31,7 +32,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="index.html">
+                        <a class="nav-link" href="../index.html">
                             <i class="fas fa-home"></i> Home
                         </a>
                     </li>
@@ -352,68 +353,10 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="../js/script.js"></script>
+    <script src="../js/geral.js"></script>
+    <script src="../js/contato.js"></script>
     
-    <script>
-        // Formulário de contato
-        document.getElementById('contatoForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const alertContainer = document.getElementById('alert-container');
-            const formData = new FormData(this);
-            
-            try {
-                const response = await fetch('../api/enviar_contato.php', {
-                    method: 'POST',
-                    body: formData
-                });
-                
-                const result = await response.json();
-                
-                if (result.success) {
-                    alertContainer.innerHTML = `
-                        <div class="alert alert-success alert-dismissible fade show">
-                            <i class="fas fa-check-circle"></i> ${result.message}
-                            <button type="button" class="close" data-dismiss="alert">
-                                <span>&times;</span>
-                            </button>
-                        </div>
-                    `;
-                    this.reset();
-                } else {
-                    alertContainer.innerHTML = `
-                        <div class="alert alert-danger alert-dismissible fade show">
-                            <i class="fas fa-exclamation-triangle"></i> ${result.error}
-                            <button type="button" class="close" data-dismiss="alert">
-                                <span>&times;</span>
-                            </button>
-                        </div>
-                    `;
-                }
-            } catch (error) {
-                alertContainer.innerHTML = `
-                    <div class="alert alert-danger alert-dismissible fade show">
-                        <i class="fas fa-exclamation-triangle"></i> Erro ao enviar mensagem. Tente novamente.
-                        <button type="button" class="close" data-dismiss="alert">
-                            <span>&times;</span>
-                        </button>
-                    </div>
-                `;
-            }
-        });
 
-        // Máscara para telefone
-        document.getElementById('telefone').addEventListener('input', function(e) {
-            let value = e.target.value.replace(/\D/g, '');
-            if (value.length <= 11) {
-                value = value.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
-                if (value.length < 14) {
-                    value = value.replace(/(\d{2})(\d{4})(\d{4})/, '($1) $2-$3');
-                }
-                e.target.value = value;
-            }
-        });
-    </script>
 </body>
 </html>
 
