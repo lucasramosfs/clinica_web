@@ -2,6 +2,11 @@
 
 Projeto de website para clínica médica desenvolvido para fins educacionais.
 
+[Link do Site no Github](https://lucasramosfs.github.io/clinica_web/)
+
+[Link do Site no infinityfree](https://lucas-ramos.free.nf/clinica_web)
+
+
 ## Estrutura do Projeto
 
 ```

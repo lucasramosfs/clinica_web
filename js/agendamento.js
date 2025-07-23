@@ -17,10 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const especialidades = [
             'Cardiologia',
             'Dermatologia', 
-            'Ortopedia',
-            'Pediatria',
-            'Neurologia',
-            'Clínica Geral'
+            'Ortopedia'
         ];
         
         especialidades.forEach(esp => {
@@ -37,12 +34,9 @@ document.addEventListener('DOMContentLoaded', function() {
             medicoSelect.innerHTML = '<option value="">Selecione um médico</option>';
             
             const medicos = {
-                'cardiologia': ['Dr. João Silva', 'Dra. Maria Santos'],
-                'dermatologia': ['Dr. Pedro Costa', 'Dra. Ana Lima'],
-                'ortopedia': ['Dr. Carlos Oliveira', 'Dra. Lucia Ferreira'],
-                'pediatria': ['Dra. Sofia Almeida', 'Dr. Rafael Souza'],
-                'neurologia': ['Dr. Bruno Martins', 'Dra. Camila Rocha'],
-                'clinica geral': ['Dr. Fernando Dias', 'Dra. Juliana Pereira']
+                'cardiologia': ['Dr. Lucas Ramos', 'Dra. Maria Santos'],
+                'dermatologia': ['Dr. Mateu Xauan', 'Dra. Ana Lima'],
+                'ortopedia': ['Dr. Victor Nogueira', 'Dra. Lucia Ferreira']
             };
             
             const medicosEspecialidade = medicos[this.value] || [];
