@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listar Médicos - VitaCare Clínica Médica</title>
+    <title>Listar Funcionários - VitaCare Clínica Médica</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="../css/geral.css">
-    <link rel="stylesheet" href="../css/tabelas.css">
+    <link rel="stylesheet" href="../../css/geral.css">
+    <link rel="stylesheet" href="../../css/tabelas.css">
 </head>
 <body>
     <!-- Header Área Restrita -->
@@ -56,10 +56,10 @@
                             <i class="fas fa-list"></i> Listagens
                         </a>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="listar_funcionarios.html">
+                            <a class="dropdown-item active" href="listar_funcionarios.html">
                                 <i class="fas fa-users"></i> Funcionários
                             </a>
-                            <a class="dropdown-item active" href="listar_medicos.html">
+                            <a class="dropdown-item" href="listar_medicos.html">
                                 <i class="fas fa-user-md"></i> Médicos
                             </a>
                             <a class="dropdown-item" href="listar_agendamentos.html">
@@ -71,7 +71,7 @@
                         </div>
                     </li>
                 </ul>
-                <a href="../public/index.html" class="btn btn-outline-light">
+                <a href="../../../index.html" class="btn btn-outline-light">
                     <i class="fas fa-globe"></i> Site Público
                 </a>
             </div>
@@ -83,8 +83,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 text-center mb-5">
-                    <h1 class="display-4 fade-in-up">Listagem de Médicos</h1>
-                    <p class="lead fade-in-up">Visualize e gerencie os médicos cadastrados</p>
+                    <h1 class="display-4 fade-in-up">Listagem de Funcionários</h1>
+                    <p class="lead fade-in-up">Visualize e gerencie os funcionários cadastrados</p>
                 </div>
             </div>
 
@@ -92,7 +92,7 @@
                 <div class="col-lg-10">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="mb-0"><i class="fas fa-user-md"></i> Médicos Cadastrados</h4>
+                            <h4 class="mb-0"><i class="fas fa-users"></i> Funcionários Cadastrados</h4>
                         </div>
                         <div class="card-body">
                             <div id="alert-container"></div>
@@ -101,15 +101,16 @@
                                     <thead>
                                         <tr>
                                             <th>Nome</th>
-                                            <th>CRM</th>
-                                            <th>Especialidade</th>
+                                            <th>CPF</th>
                                             <th>E-mail</th>
                                             <th>Telefone</th>
+                                            <th>Cargo</th>
+                                            <th>Data Contratação</th>
                                             <th>Ações</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="medicos-table-body">
-                                        <!-- Dados dos médicos serão carregados aqui via JavaScript -->
+                                    <tbody id="funcionarios-table-body">
+                                        <!-- Dados dos funcionários serão carregados aqui via JavaScript -->
                                     </tbody>
                                 </table>
                             </div>
@@ -134,9 +135,9 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="../js/geral.js"></script>
-    <script src="../js/tabelas.js"></script>
-    <script src="../js/listar_medicos.js"></script>
+    <script src="../../js/geral.js"></script>
+    <script src="../../js/tabelas.js"></script>
+    <script src="../../js/listar_funcionarios.js"></script>
 </body>
 </html>
 
