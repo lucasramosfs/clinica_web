@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             
             // Simulação de login (substituir por autenticação real)
-            if (usuario === 'joao@clinica.com' && senha === 'admin123') {
+            if (usuario === 'joao@vitacare.com.br' && senha === 'admin123') {
                 localStorage.setItem('sessao_usuario', JSON.stringify({
                     usuario: usuario,
                     timestamp: Date.now()

@@ -194,3 +194,19 @@ body {
     }
 }
 
+@media (max-width: 525px) {
+    .header .container {
+        justify-content: flex-start;
+    }
+
+    .logo {
+        flex-basis: 100%;
+        margin-bottom: 10px;
+    }
+
+    .header-info {
+        flex-basis: 100%;
+        text-align: right;
+    }
+}
+
