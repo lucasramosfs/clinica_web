@@ -7,44 +7,6 @@ Projeto de website para clínica médica desenvolvido para fins educacionais.
 [Link do Site no infinityfree](https://lucas-ramos.free.nf/clinica_web)
 
 
-## Estrutura do Projeto
-
-```
-clinica_web/
-├── index.html              # Página inicial (na raiz)
-├── css/                    # Arquivos de estilo
-│   ├── geral.css          # Estilos compartilhados
-│   ├── index.css          # Estilos específicos da página inicial
-│   ├── agendamento.css    # Estilos da página de agendamento
-│   ├── contato.css        # Estilos da página de contato
-│   ├── galeria.css        # Estilos da página de galeria
-│   ├── login.css          # Estilos da página de login
-│   ├── dashboard.css      # Estilos do dashboard
-│   └── tabelas.css        # Estilos para páginas com tabelas
-├── js/                     # Arquivos JavaScript
-│   ├── geral.js           # Funções compartilhadas
-│   ├── index.js           # JavaScript da página inicial
-│   ├── agendamento.js     # JavaScript da página de agendamento
-│   ├── contato.js         # JavaScript da página de contato
-│   ├── login.js           # JavaScript da página de login
-│   ├── dashboard.js       # JavaScript do dashboard
-│   └── tabelas.js         # JavaScript para páginas com tabelas
-├── img/                    # Imagens do projeto
-├── public/                 # Páginas públicas
-│   ├── agendamento.html
-│   ├── contato.html
-│   ├── galeria.html
-│   └── login.html
-└── restrito/              # Páginas da área restrita
-    ├── dashboard.html
-    ├── cadastro_funcionario.html
-    ├── cadastro_medico.html
-    ├── listar_agendamentos.html
-    ├── listar_contatos.html
-    ├── listar_funcionarios.html
-    └── listar_medicos.html
-```
-
 ## Organização dos Arquivos
 
 ### CSS
@@ -88,15 +50,15 @@ clinica_web/
 1. Abra o arquivo `index.html` no navegador
 2. Navegue pelas páginas usando o menu
 3. Para acessar a área restrita, use:
-   - Usuário: admin
-   - Senha: 123456
+   - Usuário: joao@vitacare.com.br
+   - Senha: admin123
 
 ## Tecnologias Utilizadas
 
 - HTML5
 - CSS3
 - JavaScript (ES6+)
-- Bootstrap 4.5.2
+- Bootstrap 5.3.3
 - Font Awesome 6.0.0
 
 ## Características do Código
