@@ -29,6 +29,10 @@
     font-size: 0.9rem;
 }
 
+.actions .btn{
+    border-radius: 20px;
+}
+
 /* Cores das bordas dos cards */
 .stat-card.funcionarios { border-left-color: #e74c3c; }
 .stat-card.medicos { border-left-color: #27ae60; }
