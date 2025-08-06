@@ -80,7 +80,7 @@ async function carregarEstatisticas() {
                     const percentage = index === 0 ? 100 : Math.round((esp.total_agendamentos / stats.especialidades_populares[0].total_agendamentos) * 100);
                     html += `
                         <div class="mb-3">
-                            <div class="d-flex justify-content-between">
+                            <div class="especialidade-item">
                                 <span>${esp.Especialidade}</span>
                                 <span class="badge badge-primary">${esp.total_agendamentos}</span>
                             </div>
@@ -118,7 +118,7 @@ async function carregarAgendamentosRecentes() {
                     const data = new Date(agendamento.Datahora).toLocaleString("pt-BR");
                     html += `
                         <div class="list-group-item">
-                            <div class="d-flex w-100 justify-content-between">
+                            <div class="list-group-item-content">
                                 <h6 class="mb-1">${agendamento.NomePaciente}</h6>
                                 <small>${data}</small>
                             </div>

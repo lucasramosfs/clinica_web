@@ -3,14 +3,13 @@
 /* Container de login */
 .login-container {
     min-height: 80vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    padding-top: 10vh;
 }
 
 .login-card {
     max-width: 400px;
     width: 100%;
+    margin: 0 auto;
     box-shadow: 0 10px 30px rgba(0,0,0,0.1);
 }
 
