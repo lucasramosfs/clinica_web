@@ -90,7 +90,14 @@ document.addEventListener("DOMContentLoaded", function() {
         
         // Simular envio
         alert("Link de recuperação enviado para seu e-mail!");
-        $("#recuperarSenhaModal").modal("hide");
+        const modal = document.getElementById("recuperarSenhaModal");
+        if (modal) {
+            // Fechar modal usando Bootstrap JavaScript API
+            const modalInstance = bootstrap.Modal.getInstance(modal);
+            if (modalInstance) {
+                modalInstance.hide();
+            }
+        }
         this.reset();
     });
 });
