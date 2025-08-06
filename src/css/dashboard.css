@@ -36,3 +36,27 @@
 .stat-card.contatos { border-left-color: #9b59b6; }
 .stat-card.hoje { border-left-color: #1abc9c; }
 
+.especialidade-item {
+    overflow: hidden;
+}
+
+.especialidade-item span:first-child {
+    float: left;
+}
+
+.especialidade-item span:last-child {
+    float: right;
+}
+
+.list-group-item-content {
+    overflow: hidden;
+}
+
+.list-group-item-content h6 {
+    float: left;
+}
+
+.list-group-item-content small {
+    float: right;
+}
+

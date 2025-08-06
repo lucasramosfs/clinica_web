@@ -23,9 +23,15 @@ body {
 }
 
 .header .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    overflow: hidden;
+}
+
+.header .logo {
+    float: left;
+}
+
+.header .header-info {
+    float: right;
 }
 
 .logo {
@@ -196,16 +202,16 @@ body {
 
 @media (max-width: 525px) {
     .header .container {
-        justify-content: flex-start;
+        text-align: left;
     }
 
     .logo {
-        flex-basis: 100%;
+        width: 100%;
         margin-bottom: 10px;
     }
 
     .header-info {
-        flex-basis: 100%;
+        width: 100%;
         text-align: right;
     }
 }
