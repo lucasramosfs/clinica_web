@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     const filterButtons = document.querySelectorAll('[data-filter]');
-    const galleryItems = document.querySelectorAll('.gallery-item');
+    const galleryItems = document.querySelectorAll('[data-category]');
 
     filterButtons.forEach(button => {
         button.addEventListener('click', function() {

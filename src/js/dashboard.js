@@ -141,4 +141,9 @@ async function carregarAgendamentosRecentes() {
     }
 }
 
-
+// Função de logout (simulada)
+const VitaCare = {
+    logout: function() {
+        window.location.href = "../public/login.html";
+    }
+};
