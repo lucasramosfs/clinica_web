@@ -17,8 +17,7 @@ function mostrarMensagem(texto, tipo = 'info') {
     alerta.className = `alert alert-${tipo}`;
     alerta.innerHTML = `
         ${texto}
-        <button type="button" class="close" onclick="this.parentElement.remove()">
-            <span>&times;</span>
+        <button type="button" class="btn-close" onclick="this.parentElement.remove()">
         </button>
     `;
     

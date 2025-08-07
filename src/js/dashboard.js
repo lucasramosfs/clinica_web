@@ -66,11 +66,11 @@ async function carregarEstatisticas() {
             const stats = result.estatisticas;
             
             // Atualizar números
-            document.querySelector(".stat-card.funcionarios .stat-number").setAttribute("data-target", stats.total_funcionarios);
-            document.querySelector(".stat-card.medicos .stat-number").setAttribute("data-target", stats.total_medicos);
-            document.querySelector(".stat-card.agendamentos .stat-number").setAttribute("data-target", stats.total_agendamentos);
-            document.querySelector(".stat-card.contatos .stat-number").setAttribute("data-target", stats.total_contatos);
-            document.querySelector(".stat-card.hoje .stat-number").setAttribute("data-target", stats.agendamentos_hoje);
+            document.querySelector(".stat-card.funcionarios .stat-number").setAttribute("data-bs-target", stats.total_funcionarios);
+            document.querySelector(".stat-card.medicos .stat-number").setAttribute("data-bs-target", stats.total_medicos);
+            document.querySelector(".stat-card.agendamentos .stat-number").setAttribute("data-bs-target", stats.total_agendamentos);
+            document.querySelector(".stat-card.contatos .stat-number").setAttribute("data-bs-target", stats.total_contatos);
+            document.querySelector(".stat-card.hoje .stat-number").setAttribute("data-bs-target", stats.agendamentos_hoje);
             
             // Atualizar especialidades populares
             const especialidadesContainer = document.getElementById("especialidades-populares");

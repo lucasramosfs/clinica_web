@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 localStorage.setItem('sessao_usuario', JSON.stringify({
                     usuario: usuario,
                     timestamp: Date.now()
+
                 }));
                 
                 mostrarMensagem('Login realizado com sucesso!', 'success');
@@ -55,33 +56,6 @@ document.addEventListener("DOMContentLoaded", function() {
             icon.classList.remove("fa-eye-slash");
             icon.classList.add("fa-eye");
         }
-    });
-
-    // Formulário de login (SIMULADO)
-    document.getElementById("loginForm").addEventListener("submit", async function(e) {
-        e.preventDefault();
-        
-        const alertContainer = document.getElementById("alert-container");
-        const submitBtn = this.querySelector("button[type=\"submit\"]");
-        
-        // Mostrar loading
-        submitBtn.innerHTML = 
-            `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Entrando...`;
-        submitBtn.disabled = true;
-        
-        // Simular sucesso no login após um pequeno atraso
-        setTimeout(() => {
-            alertContainer.innerHTML = `
-                <div class="alert alert-success">
-                    <i class="fas fa-check-circle"></i> Login realizado com sucesso. Redirecionando...
-                </div>
-            `;
-            
-            // Redirecionar para área restrita
-            setTimeout(() => {
-                window.location.href = "";
-            }, 500); // Atraso menor para redirecionamento
-        }, 1000); // Simula um tempo de processamento
     });
 
     // Formulário de recuperação de senha

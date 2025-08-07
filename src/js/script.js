@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const counters = document.querySelectorAll('.stat-number');
     const animateCounters = () => {
         counters.forEach(counter => {
-            const target = parseInt(counter.getAttribute('data-target') || counter.textContent);
+            const target = parseInt(counter.getAttribute('data-bs-target') || counter.textContent);
             const count = parseInt(counter.textContent);
             const increment = target / 100;
 
@@ -105,8 +105,7 @@ function showToast(message, type = 'info') {
     toast.innerHTML = `
         <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-triangle' : 'info-circle'}"></i>
         ${message}
-        <button type="button" class="close" onclick="this.parentElement.remove()">
-            <span>&times;</span>
+        <button type="button" class="btn-close" onclick="this.parentElement.remove()">
         </button>
     `;
     
@@ -319,7 +318,7 @@ async function fetchWithErrorHandling(url, options = {}) {
 // Inicialização de tooltips do Bootstrap (se disponível)
 document.addEventListener('DOMContentLoaded', function() {
     if (typeof bootstrap !== 'undefined' && bootstrap.Tooltip) {
-        const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-toggle="tooltip"]'));
+        const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
         tooltipTriggerList.map(function (tooltipTriggerEl) {
             return new bootstrap.Tooltip(tooltipTriggerEl);
         });
