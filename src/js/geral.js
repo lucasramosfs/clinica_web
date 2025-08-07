@@ -78,3 +78,52 @@ function logout() {
     }
 }
 
+// Máscara para CPF
+function aplicarMascaraCPF(input) {
+    input.addEventListener('input', function (e) {
+        let valor = e.target.value.replace(/\D/g, '');
+
+        if (valor.length > 11) valor = valor.slice(0, 11);
+
+        valor = valor.replace(/(\d{3})(\d)/, '$1.$2');
+        valor = valor.replace(/(\d{3})(\d)/, '$1.$2');
+        valor = valor.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+
+        e.target.value = valor;
+    });
+}
+
+// Máscara para telefone
+function aplicarMascaraTelefone(input) {
+    input.addEventListener('input', function (e) {
+        let valor = e.target.value.replace(/\D/g, '');
+
+        if (valor.length > 11) valor = valor.slice(0, 11);
+
+        if (valor.length === 11) {
+            valor = valor.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+        } else if (valor.length >= 10) {
+            valor = valor.replace(/(\d{2})(\d{4})(\d{4})/, '($1) $2-$3');
+        }
+
+        e.target.value = valor;
+    });
+}
+
+//Mascara para CRM
+function aplicarMascaraCRM(input) {
+    input.addEventListener('input', function (e) {
+        let valor = e.target.value.toUpperCase();
+
+        // Remove tudo que não for letra ou número
+        valor = valor.replace(/[^A-Z0-9]/g, '');
+
+        let letras = valor.substring(0, 2).replace(/[^A-Z]/g, ''); 
+        let numeros = valor.substring(2).replace(/[^0-9]/g, '');   
+
+        letras = letras.substring(0, 2);      
+        numeros = numeros.substring(0, 6);     
+
+        e.target.value = letras + numeros;
+    });
+}

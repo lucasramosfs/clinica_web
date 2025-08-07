@@ -31,13 +31,27 @@ document.addEventListener("DOMContentLoaded", function() {
             window.scrollTo({ top: 0, behavior: "smooth" });
         }, 1000); // Simula um tempo de processamento
     });
+
+
+    const telefoneInput = document.querySelector('[type="tel"]');
+    if (telefoneInput) {
+        aplicarMascaraTelefone(telefoneInput);
+    }
+
+    const cpfInput = document.getElementById('cpf');
+    if (cpfInput) {
+        aplicarMascaraCPF(cpfInput);
+    }
+
+    const crmInput = document.getElementById('crm');
+    if (crmInput) {
+        aplicarMascaraCRM(crmInput);
+    }
 });
 
 // Função de logout (simulada)
 const VitaCare = {
     logout: function() {
-        // Em um ambiente real, aqui você faria uma requisição para o backend para encerrar a sessão
-        // Por enquanto, apenas redireciona para a página de login
         window.location.href = "../public/login.html";
     }
 };
