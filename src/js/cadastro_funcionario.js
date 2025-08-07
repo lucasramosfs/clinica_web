@@ -21,8 +21,7 @@ document.addEventListener("DOMContentLoaded", function() {
             alertContainer.innerHTML = `
                 <div class="alert alert-success alert-dismissible fade show">
                     <i class="fas fa-check-circle"></i> Funcionário cadastrado com sucesso (simulado).
-                    <button type="button" class="close" data-dismiss="alert">
-                        <span>&times;</span>
+                    <button type="button" class="btn-close" data-dismiss="alert">
                     </button>
                 </div>
             `;
