@@ -74,12 +74,49 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    // Função de exemplo para cancelar agendamento (simulada)
+    let agendamentoParaCancelar = null;
+
     window.cancelarAgendamento = function(codigo) {
-        if (confirm(`Simulação: Tem certeza que deseja cancelar o agendamento com código: ${codigo}?`)) {
-            alert(`Simulação: Agendamento ${codigo} cancelado.`);
+        const agendamento = agendamentos.find(a => a.codigo === codigo);
+        if (agendamento) {
+            agendamentoParaCancelar = agendamento;
+            document.getElementById('pacienteParaCancelar').textContent = agendamento.nome_paciente;
+            document.getElementById('dataParaCancelar').textContent = agendamento.data_agendamento;
+            document.getElementById('horaParaCancelar').textContent = agendamento.hora_agendamento;
+
+            const modal = new bootstrap.Modal(document.getElementById('confirmarCancelamentoModal'));
+            modal.show();
         }
     };
+
+    window.confirmarCancelamento = function() {
+        if (agendamentoParaCancelar) {
+            const index = agendamentos.findIndex(a => a.codigo === agendamentoParaCancelar.codigo);
+            if (index !== -1) {
+                const nomePaciente = agendamentos[index].nome_paciente;
+                agendamentos.splice(index, 1);
+
+                carregarAgendamentosEstaticos();
+
+                const modal = bootstrap.Modal.getInstance(document.getElementById('confirmarCancelamentoModal'));
+                modal.hide();
+
+                mostrarAlerta('warning', `O agendamento do(a) paciente "${nomePaciente}" foi cancelado.`);
+
+                agendamentoParaCancelar = null;
+            }
+        }
+    };
+
+    function mostrarAlerta(tipo, mensagem) {
+        const alertContainer = document.getElementById('alert-container');
+        alertContainer.innerHTML = `
+            <div class="alert alert-${tipo} alert-dismissible fade show" role="alert">
+                ${mensagem}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+            </div>
+        `;
+    }
 
     carregarAgendamentosEstaticos();
 });

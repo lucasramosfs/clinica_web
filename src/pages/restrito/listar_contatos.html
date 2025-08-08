@@ -127,6 +127,39 @@
         </div>
     </main>
 
+    <!-- Modal Confirmar Exclusão de Contato -->
+    <div class="modal fade" id="confirmarExclusaoContatoModal" tabindex="-1" aria-labelledby="confirmarExclusaoContatoModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title" id="confirmarExclusaoContatoModalLabel">
+                        <i class="fas fa-exclamation-triangle"></i> Confirmar Exclusão
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar" style="filter: invert(1);"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="text-center">
+                        <i class="fas fa-trash-alt fa-3x text-danger mb-3"></i>
+                        <h5>Tem certeza que deseja excluir esta mensagem de contato?</h5>
+                        <p class="text-muted mb-4">Esta ação não poderá ser desfeita.</p>
+                        <div class="alert alert-light border">
+                            <strong>Nome:</strong> <span id="nomeContatoParaExcluir"></span><br>
+                            <strong>E-mail:</strong> <span id="emailContatoParaExcluir"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="fas fa-times"></i> Cancelar
+                    </button>
+                    <button type="button" class="btn btn-danger" onclick="confirmarExclusaoContato()">
+                        <i class="fas fa-trash"></i> Excluir Contato
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
