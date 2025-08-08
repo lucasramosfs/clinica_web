@@ -68,19 +68,115 @@ document.addEventListener("DOMContentLoaded", function() {
             `;
         }
     }
+    let funcionarioParaExcluir = null;
 
-    // Funções de exemplo para editar e excluir (simuladas)
+    // Função para editar funcionário
     window.editarFuncionario = function(codigo) {
-        alert(`Simulação: Editar funcionário com código: ${codigo}`);
-    };
-
-    window.excluirFuncionario = function(codigo) {
-        if (confirm(`Simulação: Tem certeza que deseja excluir o funcionário com código: ${codigo}?`)) {
-            alert(`Simulação: Excluir funcionário com código: ${codigo}`);
+        const funcionario = funcionarios.find(f => f.codigo === codigo);
+        if (funcionario) {
+            document.getElementById('editCodigo').value = funcionario.codigo;
+            document.getElementById('editNome').value = funcionario.nome;
+            document.getElementById('editCpf').value = funcionario.cpf;
+            document.getElementById('editEmail').value = funcionario.email;
+            document.getElementById('editTelefone').value = funcionario.telefone;
+            document.getElementById('editCargo').value = funcionario.cargo;
+            document.getElementById('editDataContratacao').value = funcionario.data_contratacao;
+            
+            const modal = new bootstrap.Modal(document.getElementById('editarFuncionarioModal'));
+            modal.show();
         }
     };
 
+    // Função para salvar edição
+    window.salvarEdicao = function() {
+        const codigo = parseInt(document.getElementById('editCodigo').value);
+        const nome = document.getElementById('editNome').value;
+        const cpf = document.getElementById('editCpf').value;
+        const email = document.getElementById('editEmail').value;
+        const telefone = document.getElementById('editTelefone').value;
+        const cargo = document.getElementById('editCargo').value;
+        const dataContratacao = document.getElementById('editDataContratacao').value;
+
+        // Validação básica
+        if (!nome || !cpf || !email || !telefone || !cargo || !dataContratacao) {
+            alert('Por favor, preencha todos os campos obrigatórios.');
+            return;
+        }
+
+        // Encontrar e atualizar o funcionário
+        const index = funcionarios.findIndex(f => f.codigo === codigo);
+        if (index !== -1) {
+            funcionarios[index] = {
+                codigo: codigo,
+                nome: nome,
+                cpf: cpf,
+                email: email,
+                telefone: telefone,
+                cargo: cargo,
+                data_contratacao: dataContratacao
+            };
+            
+            // Recarregar tabela
+            carregarFuncionariosEstaticos();
+            
+            // Fechar modal
+            const modal = bootstrap.Modal.getInstance(document.getElementById('editarFuncionarioModal'));
+            modal.hide();
+            
+            // Mostrar mensagem de sucesso
+            mostrarAlerta('success', `Funcionário ${nome} atualizado com sucesso!`);
+        }
+    };
+
+    // Função para excluir funcionário
+    window.excluirFuncionario = function(codigo) {
+        const funcionario = funcionarios.find(f => f.codigo === codigo);
+        if (funcionario) {
+            funcionarioParaExcluir = funcionario;
+            document.getElementById('nomeParaExcluir').textContent = funcionario.nome;
+            document.getElementById('cpfParaExcluir').textContent = funcionario.cpf;
+            
+            const modal = new bootstrap.Modal(document.getElementById('confirmarExclusaoModal'));
+            modal.show();
+        }
+    };
+
+    // Função para confirmar exclusão
+    window.confirmarExclusao = function() {
+        if (funcionarioParaExcluir) {
+            const index = funcionarios.findIndex(f => f.codigo === funcionarioParaExcluir.codigo);
+            if (index !== -1) {
+                const nomeFuncionario = funcionarios[index].nome;
+                funcionarios.splice(index, 1);
+                
+                // Recarregar tabela
+                carregarFuncionariosEstaticos();
+                
+                // Fechar modal
+                const modal = bootstrap.Modal.getInstance(document.getElementById('confirmarExclusaoModal'));
+                modal.hide();
+                
+                // Mostrar mensagem de sucesso
+                mostrarAlerta('warning', `Funcionário ${nomeFuncionario} foi removido da lista.`);
+                
+                funcionarioParaExcluir = null;
+            }
+        }
+    };
+
+    // Carregar funcionários na inicialização
     carregarFuncionariosEstaticos();
+
+    const telefoneInput = document.getElementById('editTelefone');
+    if (telefoneInput) {
+        aplicarMascaraTelefone(telefoneInput);
+    }
+
+    const cpfInput = document.getElementById('editCpf');
+    if (cpfInput) {
+        aplicarMascaraCPF(cpfInput);
+    }
+
 });
 
 // Função de logout (simulada)
