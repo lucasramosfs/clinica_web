@@ -66,12 +66,49 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    // Função de exemplo para excluir contato (simulada)
+    let contatoParaExcluir = null;
+
     window.excluirContato = function(codigo) {
-        if (confirm(`Simulação: Tem certeza que deseja excluir a mensagem de contato com código: ${codigo}?`)) {
-            alert(`Simulação: Mensagem de contato ${codigo} excluída.`);
+        const contato = contatos.find(c => c.codigo === codigo);
+        if (contato) {
+            contatoParaExcluir = contato;
+            document.getElementById('nomeContatoParaExcluir').textContent = contato.nome;
+            document.getElementById('emailContatoParaExcluir').textContent = contato.email;
+
+            const modal = new bootstrap.Modal(document.getElementById('confirmarExclusaoContatoModal'));
+            modal.show();
         }
     };
+
+    window.confirmarExclusaoContato = function() {
+        if (contatoParaExcluir) {
+            const index = contatos.findIndex(c => c.codigo === contatoParaExcluir.codigo);
+            if (index !== -1) {
+                const nomeContato = contatos[index].nome;
+                contatos.splice(index, 1);
+
+                carregarContatosEstaticos();
+
+                const modal = bootstrap.Modal.getInstance(document.getElementById('confirmarExclusaoContatoModal'));
+                modal.hide();
+
+                mostrarAlerta('warning', `Contato "${nomeContato}" foi removido da lista.`);
+
+                contatoParaExcluir = null;
+            }
+        }
+    };
+
+    // Alerta simples reaproveitável
+    function mostrarAlerta(tipo, mensagem) {
+        const alertContainer = document.getElementById('alert-container');
+        alertContainer.innerHTML = `
+            <div class="alert alert-${tipo} alert-dismissible fade show" role="alert">
+                ${mensagem}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+            </div>
+        `;
+    }
 
     carregarContatosEstaticos();
 });
