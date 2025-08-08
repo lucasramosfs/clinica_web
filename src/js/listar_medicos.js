@@ -65,18 +65,116 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    // Funções de exemplo para editar e excluir (simuladas)
+    // Função para editar médico
     window.editarMedico = function(codigo) {
-        alert(`Simulação: Editar médico com código: ${codigo}`);
-    };
-
-    window.excluirMedico = function(codigo) {
-        if (confirm(`Simulação: Tem certeza que deseja excluir o médico com código: ${codigo}?`)) {
-            alert(`Simulação: Excluir médico com código: ${codigo}`);
+        const medico = medicos.find(m => m.codigo === codigo);
+        if (medico) {
+            document.getElementById('editCodigo').value = medico.codigo;
+            document.getElementById('editNome').value = medico.nome;
+            document.getElementById('editCrm').value = medico.crm;
+            document.getElementById('editEspecialidade').value = medico.especialidade;
+            document.getElementById('editEmail').value = medico.email;
+            document.getElementById('editTelefone').value = medico.telefone;
+            
+            const modal = new bootstrap.Modal(document.getElementById('editarMedicoModal'));
+            modal.show();
         }
     };
 
+    // Função para salvar edição
+    window.salvarEdicao = function() {
+        const codigo = parseInt(document.getElementById('editCodigo').value);
+        const nome = document.getElementById('editNome').value;
+        const crm = document.getElementById('editCrm').value;
+        const especialidade = document.getElementById('editEspecialidade').value;
+        const email = document.getElementById('editEmail').value;
+        const telefone = document.getElementById('editTelefone').value;
+
+        // Validação básica
+        if (!nome || !crm || !especialidade || !email || !telefone) {
+            alert('Por favor, preencha todos os campos obrigatórios.');
+            return;
+        }
+
+        // Validação do formato do CRM
+        if (!crm.match(/^[A-Z]{2}\d{4,6}$/)) {
+            alert('CRM deve seguir o formato: UF + números (ex: MG123456)');
+            return;
+        }
+
+        // Encontrar e atualizar o médico
+        const index = medicos.findIndex(m => m.codigo === codigo);
+        if (index !== -1) {
+            medicos[index] = {
+                codigo: codigo,
+                nome: nome,
+                crm: crm.toUpperCase(),
+                especialidade: especialidade,
+                email: email,
+                telefone: telefone
+            };
+            
+            // Recarregar tabela
+            carregarMedicosEstaticos();
+            
+            // Fechar modal
+            const modal = bootstrap.Modal.getInstance(document.getElementById('editarMedicoModal'));
+            modal.hide();
+            
+            // Mostrar mensagem de sucesso
+            mostrarAlerta('success', `${nome} foi atualizado com sucesso!`);
+        }
+    };
+
+    // Função para excluir médico
+    window.excluirMedico = function(codigo) {
+        const medico = medicos.find(m => m.codigo === codigo);
+        if (medico) {
+            medicoParaExcluir = medico;
+            document.getElementById('nomeParaExcluir').textContent = medico.nome;
+            document.getElementById('crmParaExcluir').textContent = medico.crm;
+            document.getElementById('especialidadeParaExcluir').textContent = medico.especialidade;
+            
+            const modal = new bootstrap.Modal(document.getElementById('confirmarExclusaoModal'));
+            modal.show();
+        }
+    };
+
+    // Função para confirmar exclusão
+    window.confirmarExclusao = function() {
+        if (medicoParaExcluir) {
+            const index = medicos.findIndex(m => m.codigo === medicoParaExcluir.codigo);
+            if (index !== -1) {
+                const nomeMedico = medicos[index].nome;
+                medicos.splice(index, 1);
+                
+                // Recarregar tabela
+                carregarMedicosEstaticos();
+                
+                // Fechar modal
+                const modal = bootstrap.Modal.getInstance(document.getElementById('confirmarExclusaoModal'));
+                modal.hide();
+                
+                // Mostrar mensagem de sucesso
+                mostrarAlerta('warning', `${nomeMedico} foi removido da lista.`);
+                
+                medicoParaExcluir = null;
+            }
+        }
+    };
+
+    // Carregar médicos na inicialização
     carregarMedicosEstaticos();
+
+    const telefoneInput = document.getElementById('editTelefone');
+    if (telefoneInput) {
+        aplicarMascaraTelefone(telefoneInput);
+    }
+
+    const crmInput = document.getElementById('editCrm');
+    if (crmInput) {
+        aplicarMascaraCRM(crmInput);
+    }
 });
 
 // Função de logout (simulada)
