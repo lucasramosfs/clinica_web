@@ -1,0 +1,8 @@
+Equipe de Desenvolvimento:
+- Desenvolvedor: Lucas Ramos, Mateu Xauan, Victor Nogueira
+- Projeto: Sistema Web para Clínica Médica VitaCare
+- Disciplina: Programação para Internet
+- Instituição: Universidade Federal de Uberlândia (UFU)
+- Professor: Daniel A Furtado
+- Data: agosto 2025
+
