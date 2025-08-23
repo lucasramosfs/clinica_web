@@ -1,31 +1,5 @@
-// JavaScript específico para o dashboard
-
 document.addEventListener('DOMContentLoaded', function() {
-    // Verificar se usuário está logado
-    const sessao = localStorage.getItem('sessao_usuario');
-    if (!sessao) {
-        window.location.href = '../public/login.html';
-        return;
-    }
-    
-    // Animação dos números das estatísticas
-    const contadores = document.querySelectorAll('.stat-number');
-    contadores.forEach(contador => {
-        const valorFinal = parseInt(contador.textContent);
-        let valorAtual = 0;
-        const incremento = valorFinal / 50;
-        
-        const timer = setInterval(() => {
-            valorAtual += incremento;
-            if (valorAtual >= valorFinal) {
-                contador.textContent = valorFinal;
-                clearInterval(timer);
-            } else {
-                contador.textContent = Math.floor(valorAtual);
-            }
-        }, 30);
-    });
-    
+
     // Atualizar data/hora atual
     function atualizarDataHora() {
         const agora = new Date();
@@ -38,41 +12,32 @@ document.addEventListener('DOMContentLoaded', function() {
     
     atualizarDataHora();
     setInterval(atualizarDataHora, 1000);
-});
-
-
-
-
-// Script movido de dashboard.html
-document.addEventListener("DOMContentLoaded", function() {
-    carregarEstatisticas();
-    carregarAgendamentosRecentes();
-    
     // Atualizar último acesso
     document.getElementById("ultimo-acesso").textContent = new Date().toLocaleString("pt-BR");
     
-    // Simular informações do usuário
-    document.getElementById("user-info").innerHTML = 
-        `<i class="fas fa-user"></i> João Silva (Admin)`;
-});
 
+    carregarEstatisticas();
+    carregarAgendamentosRecentes();
+
+});
 // Carregar estatísticas
 async function carregarEstatisticas() {
     try {
-        const response = await fetch("../api/estatisticas.php");
+        const response = await fetch("../../../api/estatisticas.php");
         const result = await response.json();
         
         if (result.success) {
             const stats = result.estatisticas;
             
             // Atualizar números
-            document.querySelector(".stat-card.funcionarios .stat-number").setAttribute("data-bs-target", stats.total_funcionarios);
-            document.querySelector(".stat-card.medicos .stat-number").setAttribute("data-bs-target", stats.total_medicos);
-            document.querySelector(".stat-card.agendamentos .stat-number").setAttribute("data-bs-target", stats.total_agendamentos);
-            document.querySelector(".stat-card.contatos .stat-number").setAttribute("data-bs-target", stats.total_contatos);
-            document.querySelector(".stat-card.hoje .stat-number").setAttribute("data-bs-target", stats.agendamentos_hoje);
+            animarNumero(document.querySelector(".stat-card.funcionarios .stat-number"), stats.total_funcionarios);
+            animarNumero(document.querySelector(".stat-card.medicos .stat-number"), stats.total_medicos);
+            animarNumero(document.querySelector(".stat-card.agendamentos .stat-number"), stats.total_agendamentos);
+            animarNumero(document.querySelector(".stat-card.contatos .stat-number"), stats.total_contatos);
+            animarNumero(document.querySelector(".stat-card.hoje .stat-number"), stats.agendamentos_hoje);
+            animarNumero(document.querySelector(".stat-card.especialidades .stat-number"), stats.especialidades);
             
-            // Atualizar especialidades populares
+            // // Atualizar especialidades populares
             const especialidadesContainer = document.getElementById("especialidades-populares");
             if (stats.especialidades_populares && stats.especialidades_populares.length > 0) {
                 let html = "";
@@ -82,7 +47,7 @@ async function carregarEstatisticas() {
                         <div class="mb-3">
                             <div class="especialidade-item">
                                 <span>${esp.Especialidade}</span>
-                                <span class="badge badge-primary">${esp.total_agendamentos}</span>
+                                <span class="badge badge-primary" style="color: #000;">${esp.total_agendamentos}</span>
                             </div>
                             <div class="progress" style="height: 8px;">
                                 <div class="progress-bar" style="width: ${percentage}%"></div>
@@ -101,10 +66,28 @@ async function carregarEstatisticas() {
     }
 }
 
+function animarNumero(elemento, valorFinal) {
+    const duracao = 1000; // 1 segundo
+    const intervalo = 60; // ms por atualização
+    const passos = duracao / intervalo;
+    const incremento = valorFinal / passos;
+
+    let valorAtual = 0;
+
+    const timer = setInterval(() => {
+        valorAtual += incremento;
+        if (valorAtual >= valorFinal) {
+            elemento.textContent = valorFinal;
+            clearInterval(timer);
+        } else {
+            elemento.textContent = Math.floor(valorAtual);
+        }
+    }, intervalo);
+}
 // Carregar agendamentos recentes
 async function carregarAgendamentosRecentes() {
     try {
-        const response = await fetch("../api/listar_agendamentos.php");
+        const response = await fetch("../../../api/listar_agendamentos.php");
         const result = await response.json();
         
         if (result.success) {
@@ -140,10 +123,3 @@ async function carregarAgendamentosRecentes() {
             `<p class="text-danger">Erro ao carregar dados</p>`;
     }
 }
-
-// Função de logout (simulada)
-const VitaCare = {
-    logout: function() {
-        window.location.href = "../public/login.html";
-    }
-};

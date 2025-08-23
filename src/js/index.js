@@ -1,5 +1,3 @@
-// JavaScript específico para a página inicial
-
 document.addEventListener('DOMContentLoaded', function() {
     // Animação simples para elementos fade-in
     const elementosFade = document.querySelectorAll('.fade-in-up');

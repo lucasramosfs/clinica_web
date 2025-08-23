@@ -1,129 +1,105 @@
 document.addEventListener("DOMContentLoaded", function() {
-    // Simular informações do usuário
-    document.getElementById("user-info").innerHTML = "<i class=\"fas fa-user\"></i> João Silva (Admin)";
 
     const agendamentosTableBody = document.getElementById("agendamentos-table-body");
-    const alertContainer = document.getElementById("alert-container");
 
     // Dados estáticos de exemplo para agendamentos
-    const agendamentos = [
-        {
-            codigo: 1,
-            nome_paciente: "Maria Souza",
-            email_paciente: "maria.souza@email.com",
-            telefone_paciente: "(34) 99999-0000",
-            especialidade: "Cardiologia",
-            nome_medico: "Dr. Lucas Ramos",
-            data_agendamento: "2024-07-15",
-            hora_agendamento: "10:00",
-            observacoes: "Primeira consulta"
-        },
-        {
-            codigo: 2,
-            nome_paciente: "João Pereira",
-            email_paciente: "joao.pereira@email.com",
-            telefone_paciente: "(34) 98888-1111",
-            especialidade: "Dermatologia",
-            nome_medico: "Dr. Mateu Xauan",
-            data_agendamento: "2024-07-16",
-            hora_agendamento: "14:30",
-            observacoes: "Retorno"
-        },
-        {
-            codigo: 3,
-            nome_paciente: "Ana Clara Lima",
-            email_paciente: "ana.lima@email.com",
-            telefone_paciente: "(34) 97777-2222",
-            especialidade: "Ortopedia",
-            nome_medico: "Dr. Victor Nogueira",
-            data_agendamento: "2024-07-17",
-            hora_agendamento: "09:00",
-            observacoes: "Dor no joelho"
-        }
-    ];
+    async function carregarAgendamentos() {
+        try {
+            const response = await fetch("../../../api/listar_agendamentos.php");
+            const result = await response.json();
 
-    function carregarAgendamentosEstaticos() {
-        if (agendamentos.length > 0) {
-            let html = "";
-            agendamentos.forEach(agendamento => {
-                html += `
-                    <tr>
-                        <td>${agendamento.nome_paciente}</td>
-                        <td>${agendamento.email_paciente}</td>
-                        <td>${agendamento.telefone_paciente}</td>
-                        <td>${agendamento.especialidade}</td>
-                        <td>${agendamento.nome_medico}</td>
-                        <td>${agendamento.data_agendamento}</td>
-                        <td>${agendamento.hora_agendamento}</td>
-                        <td>${agendamento.observacoes || ""}</td>
-                        <td>
-                            <button class="btn btn-sm btn-danger" onclick="cancelarAgendamento(${agendamento.codigo})">
-                                <i class="fas fa-times-circle"></i> Cancelar
-                            </button>
-                        </td>
-                    </tr>
-                `;
-            });
-            agendamentosTableBody.innerHTML = html;
-        } else {
-            agendamentosTableBody.innerHTML = `
-                <tr>
-                    <td colspan="9" class="text-center">Nenhum agendamento encontrado.</td>
-                </tr>
-            `;
+            if (result.success) {
+                const agendamentos = result.agendamentos;
+                if (agendamentos.length > 0) {
+                    let html = "";
+                    agendamentos.forEach(agendamento => {
+                        html += `
+                            <tr>
+                                <td>${agendamento.NomePaciente}</td>
+                                <td>${agendamento.EmailPaciente}</td>
+                                <td>${agendamento.TelefonePaciente}</td>
+                                <td>${agendamento.Especialidade}</td>
+                                <td>${agendamento.NomeMedico}</td>
+                                <td>${VitaCare.formatDateBR(agendamento.Datahora)}</td>
+                                <td>${new Date(agendamento.Datahora).toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" })}</td>
+                                <td>
+                                    <button class="btn btn-sm btn-danger" onclick="cancelarAgendamento(${agendamento.Codigo})">
+                                        <i class="fas fa-times-circle"></i> Cancelar
+                                    </button>
+                                </td>
+                            </tr>
+                        `;
+                    });
+                    agendamentosTableBody.innerHTML = html;
+                } else {
+                    agendamentosTableBody.innerHTML = `
+                        <tr>
+                            <td colspan="9" class="text-center">Nenhum agendamento encontrado.</td>
+                        </tr>
+                    `;
+                }
+            } else {
+                VitaCare.showToast(`Erro ao carregar agendamentos: ${result.error}`, "danger");
+            }
+        } catch (error) {
+            console.error("Erro ao buscar agendamentos:", error);
+            VitaCare.showToast("Erro de conexão ao carregar agendamentos.", "danger");
         }
     }
 
     let agendamentoParaCancelar = null;
 
-    window.cancelarAgendamento = function(codigo) {
-        const agendamento = agendamentos.find(a => a.codigo === codigo);
-        if (agendamento) {
-            agendamentoParaCancelar = agendamento;
-            document.getElementById('pacienteParaCancelar').textContent = agendamento.nome_paciente;
-            document.getElementById('dataParaCancelar').textContent = agendamento.data_agendamento;
-            document.getElementById('horaParaCancelar').textContent = agendamento.hora_agendamento;
-
-            const modal = new bootstrap.Modal(document.getElementById('confirmarCancelamentoModal'));
-            modal.show();
+    window.cancelarAgendamento = async function(codigo) {
+        agendamentoParaCancelar = codigo;
+        // Buscar dados do agendamento para exibir no modal
+        try {
+            const response = await fetch(`../../../api/get_agendamento.php?codigo=${codigo}`);
+            const result = await response.json();
+            if (result.success) {
+                const agendamento = result.agendamento;
+                document.getElementById("pacienteParaCancelar").textContent = agendamento.NomePaciente;
+                document.getElementById("dataParaCancelar").textContent = VitaCare.formatDateBR(agendamento.Datahora);
+                document.getElementById("horaParaCancelar").textContent = new Date(agendamento.Datahora).toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" });
+                const modal = new bootstrap.Modal(document.getElementById("confirmarCancelamentoModal"));
+                modal.show();
+            } else {
+                VitaCare.showToast(`Erro ao carregar dados do agendamento: ${result.error}`, "danger");
+            }
+        } catch (error) {
+            console.error("Erro ao buscar dados do agendamento:", error);
+            VitaCare.showToast("Erro de conexão ao carregar dados do agendamento.", "danger");
         }
     };
 
-    window.confirmarCancelamento = function() {
+    window.confirmarCancelamento = async function() {
         if (agendamentoParaCancelar) {
-            const index = agendamentos.findIndex(a => a.codigo === agendamentoParaCancelar.codigo);
-            if (index !== -1) {
-                const nomePaciente = agendamentos[index].nome_paciente;
-                agendamentos.splice(index, 1);
+            try {
+                const response = await fetch("../../../api/cancelar_agendamento.php", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ codigo: agendamentoParaCancelar })
+                });
+                const result = await response.json();
 
-                carregarAgendamentosEstaticos();
-
-                const modal = bootstrap.Modal.getInstance(document.getElementById('confirmarCancelamentoModal'));
+                if (result.success) {
+                    VitaCare.showToast(`O agendamento foi cancelado.`, "info");
+                    carregarAgendamentos();
+                } else {
+                    VitaCare.showToast(`Erro ao cancelar agendamento: ${result.error}`, "danger");
+                }
+            } catch (error) {
+                console.error("Erro ao cancelar agendamento:", error);
+                VitaCare.showToast("Erro de conexão ao cancelar agendamento.", "danger");
+            } finally {
+                const modal = bootstrap.Modal.getInstance(document.getElementById("confirmarCancelamentoModal"));
                 modal.hide();
-
-                mostrarAlerta('warning', `O agendamento do(a) paciente "${nomePaciente}" foi cancelado.`);
-
                 agendamentoParaCancelar = null;
             }
         }
     };
 
-    function mostrarAlerta(tipo, mensagem) {
-        const alertContainer = document.getElementById('alert-container');
-        alertContainer.innerHTML = `
-            <div class="alert alert-${tipo} alert-dismissible fade show" role="alert">
-                ${mensagem}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
-            </div>
-        `;
-    }
-
-    carregarAgendamentosEstaticos();
+    carregarAgendamentos();
 });
 
-// Função de logout (simulada)
-const VitaCare = {
-    logout: function() {
-        window.location.href = "../public/login.html";
-    }
-};

@@ -1,5 +1,3 @@
-// JavaScript específico para páginas com tabelas
-
 document.addEventListener('DOMContentLoaded', function() {
     // Verificar se usuário está logado
     const sessao = localStorage.getItem('sessao_usuario');

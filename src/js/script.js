@@ -1,5 +1,3 @@
-// JavaScript customizado para VitaCare Clínica Médica
-
 // Animações e efeitos visuais
 document.addEventListener('DOMContentLoaded', function() {
     // Animação fade-in para elementos
@@ -9,21 +7,6 @@ document.addEventListener('DOMContentLoaded', function() {
             element.style.opacity = '1';
             element.style.transform = 'translateY(0)';
         }, index * 200);
-    });
-
-    // Smooth scroll para links internos
-    const smoothScrollLinks = document.querySelectorAll('a[href^="#"]');
-    smoothScrollLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        });
     });
 
     // Destacar link ativo na navegação

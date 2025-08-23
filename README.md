@@ -40,7 +40,7 @@ Projeto de website para clínica médica desenvolvido para fins educacionais.
 - Autenticação para área restrita
 - Credenciais de teste: admin/123456
 
-### Dashboard (dashboard.html)
+### Dashboard (dashboard.php)
 - Painel administrativo
 - Estatísticas animadas
 - Verificação de autenticação
