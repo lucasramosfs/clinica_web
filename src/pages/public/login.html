@@ -40,7 +40,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./galeria.html">
+                        <a class="nav-link" href="./galeria.php">
                             <i class="fas fa-images"></i> Galeria
                         </a>
                     </li>
@@ -76,9 +76,8 @@
                             <p class="mb-0 mt-2">Acesso exclusivo para funcionários</p>
                         </div>
                         <div class="card-body p-5">
-                            <div id="alert-container"></div>
                             
-                            <form id="loginForm">
+                            <form id="loginForm" action="../../../api/login.php" method="POST">
                                 <div class="mb-4">
                                     <label for="email" class="form-label">
                                         <i class="fas fa-envelope"></i> E-mail
@@ -216,6 +215,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../../js/geral.js"></script>
     <script src="../../js/login.js"></script>
+    <script src="../../js/script.js"></script>
     
 
 </body>

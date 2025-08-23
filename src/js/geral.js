@@ -54,21 +54,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// Scroll suave para links internos
-document.addEventListener('DOMContentLoaded', function() {
-    const linksInternos = document.querySelectorAll('a[href^="#"]');
-    linksInternos.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const destino = document.querySelector(this.getAttribute('href'));
-            if (destino) {
-                destino.scrollIntoView({
-                    behavior: 'smooth'
-                });
-            }
-        });
-    });
-});
 
 // Função de logout
 function logout() {

@@ -32,6 +32,9 @@
 .actions .btn{
     border-radius: 20px;
 }
+.btn-sm {
+    border-radius: 15px;
+}
 
 /* Cores das bordas dos cards */
 .stat-card.funcionarios { border-left-color: #e74c3c; }
