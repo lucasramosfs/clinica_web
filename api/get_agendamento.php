@@ -3,7 +3,7 @@
 require_once '../includes/config.php';
 
 // Verificar se o usuário está logado
-verificar_login();
+// verificar_login();
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     // Verifica se o código foi informado

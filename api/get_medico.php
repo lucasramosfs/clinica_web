@@ -1,9 +1,6 @@
 <?php
 require_once '../includes/config.php';
 
-// Definir o tipo de conteúdo como JSON
-// header('Content-Type: application/json');
-
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     try {
         // Verificar se o código foi fornecido

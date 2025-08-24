@@ -67,8 +67,8 @@ async function carregarEstatisticas() {
 }
 
 function animarNumero(elemento, valorFinal) {
-    const duracao = 1000; // 1 segundo
-    const intervalo = 60; // ms por atualização
+    const duracao = 1000; 
+    const intervalo = 60; 
     const passos = duracao / intervalo;
     const incremento = valorFinal / passos;
 
