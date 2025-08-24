@@ -3,6 +3,6 @@ Equipe de Desenvolvimento:
 - Projeto: Sistema Web para Clínica Médica VitaCare
 - Disciplina: Programação para Internet
 - Instituição: Universidade Federal de Uberlândia (UFU)
-- Professor: Daniel A Furtado
-- Data: agosto 2025
+- Professor: Daniel Furtado
+- Data: setembro 2025
 
