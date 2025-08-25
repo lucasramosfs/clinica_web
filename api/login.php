@@ -1,6 +1,9 @@
 <?php
 require_once '../includes/config.php';
 
+// Iniciar sessão
+// iniciar_sessao();
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Receber dados do formulário
@@ -22,12 +25,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($funcionario && password_verify($senha, $funcionario['Senhahash'])) {
             // Login bem-sucedido
-            session_start();
-            $_SESSION['funcionario_id'] = $funcionario['Codigo'];
-            $_SESSION['funcionario_nome'] = $funcionario['Nome'];
-            $_SESSION['funcionario_email'] = $funcionario['Email'];
+            // session_start();
+            // $_SESSION['funcionario_id'] = $funcionario['Codigo'];
+            // $_SESSION['funcionario_nome'] = $funcionario['Nome'];
+            // $_SESSION['funcionario_email'] = $funcionario['Email'];
             
-            header("Location: ../src/pages/restrito/dashboard.php");
+            header("Location: ../src/pages/restrito/dashboard.html");
             exit;
 
         } else {

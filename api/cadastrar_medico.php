@@ -54,7 +54,7 @@ try {
     ]);
 
     echo json_encode(["sucesso" => "Médico cadastrado com sucesso!"], JSON_UNESCAPED_UNICODE);
-    header("Location: ../src/pages/restrito/dashboard.php");
+    header("Location: ../src/pages/restrito/dashboard.html");
     exit;
 
 } catch (PDOException $e) {

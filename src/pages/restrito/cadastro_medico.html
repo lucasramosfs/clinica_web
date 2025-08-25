@@ -11,22 +11,14 @@
     <link rel="icon" href="../../img/favicon.ico" type="image/x-icon">
 </head>
 <body>
+    
     <!-- Header Área Restrita -->
-    <?php
-    session_start();
-    if (!isset($_SESSION['funcionario_id'])) {
-        // se quiser, redireciona para login se não estiver logado
-        header("Location: ../../login.php");
-        exit;
-    }
-    ?>
     <header class="header">
         <div class="container">
-            <a href="dashboard.php" class="logo">
+            <a href="dashboard.html" class="logo">
                 <i class="fas fa-heartbeat"></i> VitaCare - Área Restrita
             </a>
             <div class="header-info">
-                <span id="user-info"><i class="fas fa-user"></i> <?php echo htmlspecialchars($_SESSION['funcionario_nome']); ?></span>
                 <button class="btn btn-outline-light btn-sm ml-3" onclick="VitaCare.logout()">
                     <i class="fas fa-sign-out-alt"></i> Sair
                 </button>
@@ -45,7 +37,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" href="dashboard.php">
+                        <a class="nav-link active" href="dashboard.html">
                             <i class="fas fa-tachometer-alt"></i> Dashboard
                         </a>
                     </li>
@@ -55,10 +47,10 @@
                             <i class="fas fa-plus-circle"></i> Cadastros
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="cadastrosDropdown">
-                            <li><a class="dropdown-item" href="cadastro_funcionario.php">
+                            <li><a class="dropdown-item" href="cadastro_funcionario.html">
                                 <i class="fas fa-user-tie"></i> Funcionários
                             </a></li>
-                            <li><a class="dropdown-item" href="cadastro_medico.php">
+                            <li><a class="dropdown-item" href="cadastro_medico.html">
                                 <i class="fas fa-user-md"></i> Médicos
                             </a></li>
                         </ul>
@@ -69,16 +61,16 @@
                             <i class="fas fa-list"></i> Listagens
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="listagensDropdown">
-                            <li><a class="dropdown-item" href="listar_funcionarios.php">
+                            <li><a class="dropdown-item" href="listar_funcionarios.html">
                                 <i class="fas fa-users"></i> Funcionários
                             </a></li>
-                            <li><a class="dropdown-item" href="listar_medicos.php">
+                            <li><a class="dropdown-item" href="listar_medicos.html">
                                 <i class="fas fa-user-md"></i> Médicos
                             </a></li>
-                            <li><a class="dropdown-item" href="listar_agendamentos.php">
+                            <li><a class="dropdown-item" href="listar_agendamentos.html">
                                 <i class="fas fa-calendar-alt"></i> Agendamentos
                             </a></li>
-                            <li><a class="dropdown-item" href="listar_contatos.php">
+                            <li><a class="dropdown-item" href="listar_contatos.html">
                                 <i class="fas fa-envelope"></i> Contatos
                             </a></li>
                         </ul>

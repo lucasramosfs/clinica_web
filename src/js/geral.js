@@ -56,12 +56,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 // Função de logout
-function logout() {
-    if (confirm('Tem certeza que deseja sair?')) {
-        localStorage.removeItem('sessao_usuario');
-        window.location.href = '../public/login.html';
-    }
-}
+// function logout() {
+//     if (confirm('Tem certeza que deseja sair?')) {
+//         // Limpar dados locais
+//         localStorage.removeItem('sessao_usuario');
+//         sessionStorage.clear();
+        
+//         // Redirecionar para a API de logout que fará a limpeza da sessão PHP
+//         window.location.href = '../../../api/logout.php';
+//     }
+// }
 
 // Máscara para CPF
 function aplicarMascaraCPF(input) {

@@ -309,16 +309,16 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Função para logout (área restrita)
-function logout() {
-    if (confirm('Tem certeza que deseja sair?')) {
-        // Limpar sessão (implementar conforme necessário)
-        localStorage.removeItem('user_session');
-        sessionStorage.clear();
+// function logout() {
+//     if (confirm('Tem certeza que deseja sair?')) {
+//         // Limpar sessão (implementar conforme necessário)
+//         localStorage.removeItem('user_session');
+//         sessionStorage.clear();
         
-        // Redirecionar para login
-        window.location.href = '../public/login.html';
-    }
-}
+//         // Redirecionar para login
+//         window.location.href = '../public/login.html';
+//     }
+// }
 
 // Exportar funções para uso global
 window.VitaCare = {

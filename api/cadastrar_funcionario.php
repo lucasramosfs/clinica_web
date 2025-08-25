@@ -50,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'funcionario_id' => $pdo->lastInsertId()
         ]);
 
-        header("Location: ../src/pages/restrito/dashboard.php");
+        header("Location: ../src/pages/restrito/dashboard.html");
         exit;
         
     } catch (PDOException $e) {

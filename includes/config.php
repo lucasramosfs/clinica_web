@@ -25,13 +25,23 @@ function sanitize_input($data) {
     return $data;
 }
 
-// // Função para verificar se o usuário está logado
+// // Função para verificar se o usuário está logado - ATIVADA
 // function verificar_login() {
-//     session_start();
+//     if (session_status() == PHP_SESSION_NONE) {
+//         session_start();
+//     }
+    
 //     if (!isset($_SESSION['funcionario_id'])) {
-//         http_response_code(401);
-//         echo json_encode(['error' => 'Acesso negado. Faça login primeiro.']);
+//         // Redirecionar para a página de login correta
+//         header("Location: ../public/login.html");
 //         exit;
+//     }
+// }
+
+// // Função para iniciar sessão se ainda não foi iniciada
+// function iniciar_sessao() {
+//     if (session_status() == PHP_SESSION_NONE) {
+//         session_start();
 //     }
 // }
 
