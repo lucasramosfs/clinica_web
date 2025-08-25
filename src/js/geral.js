@@ -1,5 +1,3 @@
-// JavaScript geral - Funções compartilhadas
-
 // Funções básicas de validação
 function validarEmail(email) {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

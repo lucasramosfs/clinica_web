@@ -331,6 +331,6 @@ window.VitaCare = {
     debounce,
     isElementInViewport,
     fetchWithErrorHandling,
-    logout
+    // logout
 };
 

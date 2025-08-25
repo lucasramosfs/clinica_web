@@ -124,8 +124,21 @@ document.addEventListener("DOMContentLoaded", function() {
     // Função para excluir funcionário
     window.excluirFuncionario = async function(codigo) {
         funcionarioParaExcluir = codigo;
-        const funcionarioNome = document.querySelector(`#funcionarios-table-body tr button[onclick="excluirFuncionario(${codigo})"]`).closest("tr").querySelector("td").textContent;
-        document.getElementById("nomeParaExcluir").textContent = funcionarioNome;
+
+        const linha = document.querySelector(`#funcionarios-table-body tr button[onclick="excluirFuncionario(${codigo})"]`).closest("tr");
+        
+        // Extrai os valores da linha
+        const nome = linha.children[0].textContent;
+        const email = linha.children[1].textContent;
+
+        // Preenche no modal
+        document.getElementById("nomeParaExcluir").textContent = nome;
+        document.getElementById("emailParaExcluir").textContent = email;
+
+
+        // const funcionarioNome = document.querySelector(`#funcionarios-table-body tr button[onclick="excluirFuncionario(${codigo})"]`).closest("tr").querySelector("td").textContent;
+        // document.getElementById("nomeParaExcluir").textContent = funcionarioNome;
+        // document.getElementById("emailParaExcluir").textContent = funcionarioNome;
         
         const modal = new bootstrap.Modal(document.getElementById("confirmarExclusaoModal"));
         modal.show();
