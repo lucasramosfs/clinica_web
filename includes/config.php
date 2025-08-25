@@ -25,15 +25,6 @@ function sanitize_input($data) {
     return $data;
 }
 
-// // Função para verificar se o usuário está logado
-// function verificar_login() {
-//     session_start();
-//     if (!isset($_SESSION['funcionario_id'])) {
-//         http_response_code(401);
-//         echo json_encode(['error' => 'Acesso negado. Faça login primeiro.']);
-//         exit;
-//     }
-// }
 
 // Configuração de CORS e JSON apenas para endpoints de API
 if (strpos($_SERVER['SCRIPT_NAME'], '/api/') !== false) {

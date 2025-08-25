@@ -1,10 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Verificar se usuário está logado
-    const sessao = localStorage.getItem('sessao_usuario');
-    if (!sessao) {
-        window.location.href = '../public/login.html';
-        return;
-    }
     
     // Função para confirmar exclusão
     window.confirmarExclusao = function(id, tipo) {

@@ -15,8 +15,7 @@
     <?php
     session_start();
     if (!isset($_SESSION['funcionario_id'])) {
-        // se quiser, redireciona para login se não estiver logado
-        header("Location: ../../login.php");
+        header("Location: ../public/login.html");
         exit;
     }
     ?>
@@ -26,13 +25,28 @@
                 <i class="fas fa-heartbeat"></i> VitaCare - Área Restrita
             </a>
             <div class="header-info">
-                <span id="user-info"><i class="fas fa-user"></i> <?php echo htmlspecialchars($_SESSION['funcionario_nome']); ?> </span>
-                <button class="btn btn-outline-light btn-sm ml-3" onclick="VitaCare.logout()">
-                    <i class="fas fa-sign-out-alt"></i> Sair
-                </button>
+                <span id="user-info">
+                    <i class="fas fa-user"></i> <?php echo htmlspecialchars($_SESSION['funcionario_nome']); ?>
+                </span>
+                <form method="POST" style="display:inline;">
+                    <button type="submit" name="logout" class="btn btn-outline-light btn-sm ml-3">
+                        <i class="fas fa-sign-out-alt"></i> Sair
+                    </button>
+                </form>
             </div>
         </div>
     </header>
+
+    <?php
+    // Logout
+    if (isset($_POST['logout'])) {
+        session_start();
+        session_unset();
+        session_destroy();
+        header("Location: ../public/login.html");
+        exit;
+    }
+    ?>
 
     <!-- Navegação Área Restrita -->
     <nav class="navbar navbar-expand-lg navbar-dark">
@@ -223,7 +237,7 @@
                         <p class="text-muted mb-4">Esta ação não poderá ser desfeita.</p>
                         <div class="alert alert-light border">
                             <strong>Funcionário:</strong> <span id="nomeParaExcluir"></span><br>
-                            <strong>CPF:</strong> <span id="cpfParaExcluir"></span>
+                            <strong>Email:</strong> <span id="emailParaExcluir"></span>
                         </div>
                     </div>
                 </div>

@@ -3,8 +3,6 @@
 require_once '../includes/config.php';
 
 
-// verificar_login();
-
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     try {
         // Verificar se foi fornecido o código
