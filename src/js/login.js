@@ -1,5 +1,34 @@
 document.addEventListener("DOMContentLoaded", function() {
-   
+
+    document.getElementById('loginForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const formData = new FormData(this);
+        
+        try {
+            const response = await fetch('../../../api/login.php', {
+                method: 'POST',
+                body: formData
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+                VitaCare.showToast(`${result.message}`, "success");
+                setTimeout(() => {
+                    window.location.href = result.redirect;
+                },1500); //Espera 1,5 segundo e redireciona ao dashboard
+
+                this.reset();
+            } else {
+                VitaCare.showToast(`${result.error}`, "danger");
+            }
+        } catch (error) {
+            VitaCare.showToast(`Erro ao enviar mensagem. Tente novamente.`, "danger");
+
+            }
+        });
+
     // Toggle mostrar/ocultar senha
     const togglePassword = document.getElementById("togglePassword");
     if (togglePassword) {
