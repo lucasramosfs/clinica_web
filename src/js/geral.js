@@ -1,14 +1,3 @@
-// Funções básicas de validação
-function validarEmail(email) {
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return regex.test(email);
-}
-
-function validarTelefone(telefone) {
-    const regex = /^\(\d{2}\)\s\d{4,5}-\d{4}$/;
-    return regex.test(telefone);
-}
-
 // Função para mostrar mensagens
 function mostrarMensagem(texto, tipo = 'info') {
     const alerta = document.createElement('div');
@@ -52,14 +41,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-
-// Função de logout
-function logout() {
-    if (confirm('Tem certeza que deseja sair?')) {
-        localStorage.removeItem('sessao_usuario');
-        window.location.href = '../public/login.html';
-    }
-}
 
 // Máscara para CPF
 function aplicarMascaraCPF(input) {
