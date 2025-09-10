@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Efeito parallax no hero (se existir)
+    // Efeito parallax no hero
     const hero = document.querySelector('.hero');
     if (hero) {
         window.addEventListener('scroll', function() {
@@ -30,41 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Contador animado para estatísticas
-    const counters = document.querySelectorAll('.stat-number');
-    const animateCounters = () => {
-        counters.forEach(counter => {
-            const target = parseInt(counter.getAttribute('data-bs-target') || counter.textContent);
-            const count = parseInt(counter.textContent);
-            const increment = target / 100;
 
-            if (count < target) {
-                counter.textContent = Math.ceil(count + increment);
-                setTimeout(animateCounters, 20);
-            } else {
-                counter.textContent = target;
-            }
-        });
-    };
-
-    // Iniciar contador quando elemento estiver visível
-    const observerOptions = {
-        threshold: 0.5,
-        rootMargin: '0px 0px -100px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                animateCounters();
-                observer.unobserve(entry.target);
-            }
-        });
-    }, observerOptions);
-
-    counters.forEach(counter => {
-        observer.observe(counter);
-    });
 });
 
 // Função para mostrar loading
@@ -308,17 +274,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// Função para logout (área restrita)
-function logout() {
-    if (confirm('Tem certeza que deseja sair?')) {
-        // Limpar sessão (implementar conforme necessário)
-        localStorage.removeItem('user_session');
-        sessionStorage.clear();
-        
-        // Redirecionar para login
-        window.location.href = '../public/login.html';
-    }
-}
 
 // Exportar funções para uso global
 window.VitaCare = {
@@ -330,7 +285,6 @@ window.VitaCare = {
     formatDateTimeBR,
     debounce,
     isElementInViewport,
-    fetchWithErrorHandling,
-    // logout
+    fetchWithErrorHandling
 };
 
